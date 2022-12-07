@@ -46,7 +46,7 @@
 
          <!-- Divider -->
          <hr class="sidebar-divider">
-
+  
        
        
 <li class="nav-item">
@@ -55,7 +55,18 @@
         <span>Gares</span></a>
 </li>
 
+
 <li>jamal</li>
+
+         <!-- Divider -->
+         <hr class="sidebar-divider">
+<li class="nav-item">
+            <a class="nav-link" href="voyages.php">
+                <i class="fa fa-car"></i>
+                <span>Voyages</span></a>
+        </li>
+
+
     </ul>
     <!-- End of Sidebar -->
 
