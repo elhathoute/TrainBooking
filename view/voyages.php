@@ -1,16 +1,4 @@
 
-<?php
-include '../modal/garesModal.php';
-include '../modal/villesModal.php';
-
-session_start();
-
-$gare = new GaresModal;
-$resultGare = $gare->getGares();
-
-$ville = new VillesModal();
-$resultVille = $ville->getVilles();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,17 +42,17 @@ $resultVille = $ville->getVilles();
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-5">
-                    <h1 class="h3 mb-0 text-gray-800">Gares</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Voyages</h1>
                    
                 </div>
                 <!-- alert -->
   <!-- alert -->
-  <?php if (isset($_SESSION['add-gare'])) {?>
+  <?php if (isset($_SESSION['add-voyage'])) {?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <?php 
-                  echo $_SESSION['add-gare'];
+                  echo $_SESSION['add-voyage'];
                
-                unset($_SESSION['add-gare']);
+                unset($_SESSION['add-voyage']);
                  ?>
                 <button type="button" class="btn-close rounded bg-success float-right" data-bs-dismiss="alert" aria-label="Close"><i class="fa fa-times"></i></button>
               </div>
@@ -72,10 +60,10 @@ $resultVille = $ville->getVilles();
                 <!-- Content Row -->
                 <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between">
-                          <div> <h6 class="mt-1 font-weight-bold text-primary">Gares</h6></div> 
+                          <div> <h6 class="mt-1 font-weight-bold text-primary">Voyages</h6></div> 
                             <div class=''>
-                                <button type="button" class="btn btn-success btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addGare" id="add-gare">
-                                  <span>Add &nbsp;<i class="fa fa-train"></i></span> 
+                                <button type="button" class="btn btn-success btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addVoyage" id="add-voyage">
+                                  <span>Add &nbsp;<i class="fa fa-car"></i></span> 
                                 </button>
                               </div>
                         </div>
@@ -86,34 +74,26 @@ $resultVille = $ville->getVilles();
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Nom</th>
-            <th scope="col">ville</th>
+            <th scope="col">dat_dep</th>
+            <th scope="col">dat_arriv</th>
+            <th scope="col">train</th>
+            <th scope="col">gare_dep</th>
+            <th scope="col">gare_arr</th>
+            <th scope="col">classe</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-        <?php
-       
-       foreach ($resultGare as $gare) {
-       ?>
-
-         <tr>
-           <th scope="row"><?php echo $gare['id']; ?></th>
-           <td id='td-1'><?php echo $gare['nom']; ?></td>
-           <td id='td-2'><input id='td-2-2' type="hidden" value="<?php echo $gare['id-ville']; ?>"><p><?php echo $gare['ville']; ?></p> </td>
-           <td>
-
-             <button data-bs-toggle="modal" data-bs-target="#addGare" onclick="edit(<?php echo $gare['id']; ?>)"  class="btn btn-warning"  id="<?php echo $gare['id']; ?>"><i class="fa fa-edit"></i></button>
-             
-             <a href="../controller/deleteGare.php?id=<?php echo $gare['id']; ?>" onclick="return confirm('Are you sure you want to delete this gare?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-
-
-           </td>
-
-
-         </tr>
-       <?php } ?>
-  
+        <tr>
+              <th scope="row"><?php echo '1' ?></th>
+              <td id='td-1'><?php echo 'voy'; ?></td>
+              <td id='td-1'><?php echo 'voy'; ?></td>
+              <td id='td-1'><?php echo 'voy'; ?></td>
+              <td id='td-1'><?php echo 'voy'; ?></td>
+              <td id='td-1'><?php echo 'voy'; ?></td>
+              <td id='td-1'><?php echo 'voy'; ?></td>
+              <td id='td-1'><?php echo 'Action'; ?></td>
+        </tr>      
 
         </tbody>
        
@@ -138,30 +118,35 @@ $resultVille = $ville->getVilles();
    </div>
    
    <!-- Modal -->
-   <div class="modal fade" id="addGare" tabindex="-1" role="dialog" aria-labelledby="addGare" aria-hidden="true">
+   <div class="modal fade" id="addVoyage" tabindex="-1" role="dialog" aria-labelledby="addGare" aria-hidden="true">
      <div class="modal-dialog">
        <div class="modal-content">
          <div class="modal-header">
            <h5 class="modal-title" id="staticBackdropLabel">Add train</h5>
            <button type="button" class="btn-close rounded" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
          </div>
-       <form method="POST" action="../controller/garesAdd.php" id="form-gare">
+       <form method="POST" action="../controller/voyagesAdd.php" id="form-voyage">
        <div class="modal-body">
    
    <div class="row">
      <div class="mb-3 col-12">
-       <input type="hidden" class="form-control" readonly id="gare-id" value="" name="id">
+       <input type="hidden" class="form-control" readonly id="voyage-id" value="" name="id">
      </div>
    
      <div class="mb-1 col-md-6">
-       <label class="form-label">nom</label>
-       <input type="text" class="form-control " id="nom-gare" name="nom-gare" autocomplete="off" placeholder="Exemple:gare" required />
+       <label class="form-label">date-dep</label>
+       <input type="datetime-local" class="form-control " id="voyage-date-dep" name="voyage-date-dep" autocomplete="off" placeholder="Exemple:gare" required />
+     </div>
+     <div class="mb-1 col-md-6">
+       <label class="form-label">date-arr</label>
+       <input type="datetime-local" class="form-control " id="voyage-date-arr" name="voyage-date-arr" autocomplete="off" placeholder="Exemple:gare" required />
      </div>
    
+   
      <div class="mb-1 col-md-6"> 
-     <label class="form-label">ville</label>
+     <label class="form-label">train</label>
      <div>
-     <select class="form-control " id="gare-ville" name="gare-ville" >
+     <select class="form-control " id="voyage-train" name="voyage-train" >
        <option value="" selected>Please select</option>
        <?php
        
@@ -173,15 +158,58 @@ $resultVille = $ville->getVilles();
      </div>
    </div>
    
-
+   <div class="mb-1 col-md-6"> 
+     <label class="form-label">gare-dep</label>
+     <div>
+     <select class="form-control " id="voyage-gare-dep" name="voyage-gare-dep" >
+       <option value="" selected>Please select</option>
+       <?php
+       
+       foreach ($resultVille as $ville) {
+       ?>
+       <option id="" value="<?php echo $ville['id']; ?>" ><?php echo $ville['nom']; ?></option>
+      <?php } ?>
+     </select>
+     </div>
+   </div>
     
-   
+   <div class="mb-1 col-md-6"> 
+     <label class="form-label">gare-arr</label>
+     <div>
+     <select class="form-control " id="voyage-gare-arr" name="voyage-gare-arr" >
+       <option value="" selected>Please select</option>
+       <?php
+       
+       foreach ($resultVille as $ville) {
+       ?>
+       <option id="" value="<?php echo $ville['id']; ?>" ><?php echo $ville['nom']; ?></option>
+      <?php } ?>
+     </select>
+     </div>
+   </div>
+
+   <div class="mb-1 col-md-6"> 
+     <label class="form-label">classe</label>
+     <div>
+     <select class="form-control " id="voyage-classe" name="voyage-classe" >
+       <option value="" selected>Please select</option>
+       <?php
+       
+       foreach ($resultVille as $ville) {
+       ?>
+       <option id="" value="<?php echo $ville['id']; ?>" ><?php echo $ville['nom']; ?></option>
+      <?php } ?>
+     </select>
+     </div>
+   </div>
+
+
    </div>
    </div>
    <div class="modal-footer">
    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-   <button  type="submit" name="update" class="btn btn-warning" id="gare-update-btn">Update</button>
-   <button type="submit" name="save" class="btn btn-primary gare-action-btn" id="gare-save-btn">Save</button>
+   <button  type="submit" name="update" class="btn btn-warning" id="voyage-update-btn">Update</button>
+   <button type="submit" name="save" class="btn btn-primary voyage-action-btn" id="voyage-save-btn">Save</button>
    </div>
     </form>
        </div>
@@ -215,38 +243,38 @@ $resultVille = $ville->getVilles();
        <!-- Page level custom scripts -->
        <script src="../js/demo/datatables-demo.js"></script>
    <script >
-       //btn of edit
-       function edit(id){
-         $("#gare-save-btn").css("display", "none");
-         $("#gare-update-btn").css("display", "block");
+    //    //btn of edit
+    //    function edit(id){
+    //      $("#gare-save-btn").css("display", "none");
+    //      $("#gare-update-btn").css("display", "block");
    
-    //      // change action
-         $('#form-gare').attr('action', '../controller/updateGare.php');
-         $('#gare-id').val(id);
-          $('#nom-gare').val($('#'+id).parent().parent().children('#td-1').html());
-          let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
+    // //      // change action
+    //      $('#form-gare').attr('action', '../controller/updateGare.php');
+    //      $('#gare-id').val(id);
+    //       $('#nom-gare').val($('#'+id).parent().parent().children('#td-1').html());
+    //       let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
         
-          $('#gare-ville').val(ville).change();
-       }
-    //    //btn of save
-    $("#add-gare").click(function(){
-         $("#gare-save-btn").css("display", "block");
-         $("#gare-update-btn").css("display", "none");
-         $("#form-gare")[0].reset(); //Syntax to convert jQuery element to a JavaScript object.
+    //       $('#gare-ville').val(ville).change();
+    //    }
+    // //    //btn of save
+    // $("#add-gare").click(function(){
+    //      $("#gare-save-btn").css("display", "block");
+    //      $("#gare-update-btn").css("display", "none");
+    //      $("#form-gare")[0].reset(); //Syntax to convert jQuery element to a JavaScript object.
    
-    });
+    // });
    
-       // $(document).ready(function() {
+    //    // $(document).ready(function() {
        
-      //data table
-       $('#table-gares').DataTable();
-      //verification inputs
-          $('#nom-gare').keyup(function(){
-         let nom_gare = $(this).val();
+    //   //data table
+    //    $('#table-gares').DataTable();
+    //   //verification inputs
+    //       $('#nom-gare').keyup(function(){
+    //      let nom_gare = $(this).val();
         
-      ((nom_gare !='')) ?  $(this).removeClass('is-invalid').addClass('is-valid') : $(this).removeClass('is-valid').addClass('is-invalid') ;
+    //   ((nom_gare !='')) ?  $(this).removeClass('is-invalid').addClass('is-valid') : $(this).removeClass('is-valid').addClass('is-invalid') ;
        
-       });
+    //    });
    
    
    
