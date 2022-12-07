@@ -1,3 +1,26 @@
+<?php
+
+include '../modal/trainesModal.php';
+include '../modal/garesModal.php';
+include '../modal/classesModal.php';
+include '../modal/voyagesModal.php';
+session_start();
+//voyages
+$voyage = new VoyagesModal;
+$resultVoyage = $voyage->getVoyages();
+//grt traines
+$train = new TrainesModal();
+$resultTrain = $train->getTraines();
+//gare depart
+$gare = new GaresModal;
+$resultGare = $gare->getGares();
+//gare d'arriver
+$gare2 = new GaresModal;
+$resultGare2 = $gare2->getGares();
+//classes
+$classe = new ClassesModal;
+$resultClasse = $classe->getClasses();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,17 +107,25 @@
           </tr>
         </thead>
         <tbody>
+          <?php
+          foreach($resultVoyage as $voyage){
+          ?>
         <tr>
-              <th scope="row"><?php echo '1' ?></th>
-              <td id='td-1'><?php echo 'voy'; ?></td>
-              <td id='td-1'><?php echo 'voy'; ?></td>
-              <td id='td-1'><?php echo 'voy'; ?></td>
-              <td id='td-1'><?php echo 'voy'; ?></td>
-              <td id='td-1'><?php echo 'voy'; ?></td>
-              <td id='td-1'><?php echo 'voy'; ?></td>
-              <td id='td-1'><?php echo 'Action'; ?></td>
-        </tr>      
+              <th scope="row"><?php echo $voyage['id']; ?></th>
+              <td id='td-1'><?php echo $voyage['date_dep']; ?></td>
+              <td id='td-2'><?php echo $voyage['date_arr']; ?></td>
+              <td id='td-3'><?php echo $voyage['id_train']; ?></td>
+              <td id='td-4'><?php echo $voyage['id_gare_dep']; ?></td>
+              <td id='td-5'><?php echo $voyage['id_gare_arr']; ?></td>
+              <td id='td-6'><?php echo $voyage['id_classe']; ?></td>
+              <td>
+              <button data-bs-toggle="modal" data-bs-target="#addVoyage" onclick=""  class="btn btn-warning"  id=""><i class="fa fa-edit"></i></button>
+             
+             <a href="" onclick="return confirm('Are you sure you want to delete this voyage?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 
+              </td>
+        </tr>      
+     <?php }?>
         </tbody>
        
        </table>
@@ -135,11 +166,11 @@
    
      <div class="mb-1 col-md-6">
        <label class="form-label">date-dep</label>
-       <input type="datetime-local" class="form-control " id="voyage-date-dep" name="voyage-date-dep" autocomplete="off" placeholder="Exemple:gare" required />
+       <input type="date" class="form-control " id="voyage-date-dep" name="voyage-date-dep" autocomplete="off" placeholder="Exemple:gare" required />
      </div>
      <div class="mb-1 col-md-6">
        <label class="form-label">date-arr</label>
-       <input type="datetime-local" class="form-control " id="voyage-date-arr" name="voyage-date-arr" autocomplete="off" placeholder="Exemple:gare" required />
+       <input type="date" class="form-control " id="voyage-date-arr" name="voyage-date-arr" autocomplete="off" placeholder="Exemple:gare" required />
      </div>
    
    
@@ -150,9 +181,9 @@
        <option value="" selected>Please select</option>
        <?php
        
-       foreach ($resultVille as $ville) {
+       foreach ($resultTrain  as $train) {
        ?>
-       <option id="" value="<?php echo $ville['id']; ?>" ><?php echo $ville['nom']; ?></option>
+       <option id="" value="<?php echo $train['id']; ?>" ><?php echo $train['nom']; ?></option>
       <?php } ?>
      </select>
      </div>
@@ -165,9 +196,9 @@
        <option value="" selected>Please select</option>
        <?php
        
-       foreach ($resultVille as $ville) {
+       foreach ($resultGare as $gare) {
        ?>
-       <option id="" value="<?php echo $ville['id']; ?>" ><?php echo $ville['nom']; ?></option>
+       <option id="" value="<?php echo $gare['id']; ?>" ><?php echo $gare['nom']; ?></option>
       <?php } ?>
      </select>
      </div>
@@ -178,11 +209,12 @@
      <div>
      <select class="form-control " id="voyage-gare-arr" name="voyage-gare-arr" >
        <option value="" selected>Please select</option>
+    
        <?php
        
-       foreach ($resultVille as $ville) {
+       foreach ($resultGare2 as $gare2) {
        ?>
-       <option id="" value="<?php echo $ville['id']; ?>" ><?php echo $ville['nom']; ?></option>
+      <option id="" value="<?php echo $gare2['id']; ?>" ><?php echo $gare2['nom']; ?></option>
       <?php } ?>
      </select>
      </div>
@@ -195,14 +227,16 @@
        <option value="" selected>Please select</option>
        <?php
        
-       foreach ($resultVille as $ville) {
+       foreach ($resultClasse as $classe) {
        ?>
-       <option id="" value="<?php echo $ville['id']; ?>" ><?php echo $ville['nom']; ?></option>
+       <option id="prix-voyage"    value="<?php echo $classe['id']; ?>" ><?php echo $classe['nom']; ?></option>
+  
       <?php } ?>
      </select>
      </div>
    </div>
 
+  
 
    </div>
    </div>
@@ -243,6 +277,7 @@
        <!-- Page level custom scripts -->
        <script src="../js/demo/datatables-demo.js"></script>
    <script >
+ 
     //    //btn of edit
     //    function edit(id){
     //      $("#gare-save-btn").css("display", "none");
