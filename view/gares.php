@@ -5,7 +5,7 @@ include '../modal/villesModal.php';
 
 session_start();
 
-$gare = new GaresModal();
+$gare = new GaresModal;
 $resultGare = $gare->getGares();
 
 $ville = new VillesModal();
