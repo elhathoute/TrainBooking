@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 06 déc. 2022 à 17:54
+-- Généré le : jeu. 08 déc. 2022 à 11:32
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -20,18 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `management_traines`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `classes`
---
-
-CREATE TABLE `classes` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(255) DEFAULT NULL,
-  `prix` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -62,12 +50,12 @@ CREATE TABLE `gares` (
 --
 
 INSERT INTO `gares` (`id`, `nom`, `id_ville`) VALUES
-(1, 'gare1', 1),
-(2, 'gare1', 2),
+(1, 'gare11', 9),
+(2, 'gare1', 10),
 (3, 'gare3', 1),
 (4, 'gare4', 2),
-(5, 'gare5', 3),
-(6, 'gare6', 4);
+(7, 'gare22', 23),
+(8, 'gare112', 10);
 
 -- --------------------------------------------------------
 
@@ -109,7 +97,6 @@ CREATE TABLE `reservations` (
   `date_reserve` datetime DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_voyage` int(11) DEFAULT NULL,
-  `id_classe` int(11) DEFAULT NULL,
   `etat` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -141,8 +128,7 @@ INSERT INTO `roles` (`id`, `nom`) VALUES
 CREATE TABLE `trains` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) DEFAULT NULL,
-  `capacite_first` int(11) DEFAULT NULL,
-  `capacite_second` int(11) DEFAULT NULL,
+  `capacite_train` int(11) DEFAULT NULL,
   `vitesse` int(11) DEFAULT NULL,
   `etat` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -151,15 +137,13 @@ CREATE TABLE `trains` (
 -- Déchargement des données de la table `trains`
 --
 
-INSERT INTO `trains` (`id`, `nom`, `capacite_first`, `capacite_second`, `vitesse`, `etat`) VALUES
-(1, 'train1', 50, 100, 300, 1),
-(2, 'train2', 100, 100, 100, 1),
-(3, 'train2', 100, 100, 100, 1),
-(4, 'train3', 400, 300, 250, 1),
-(5, 'dhgjzgd', 300, 100, 100, 1),
-(6, 'dgezhj', 200, 300, 150, 1),
-(7, 'kljlj', 0, 0, 0, 1),
-(8, 'hghj', 400, 100, 150, 1);
+INSERT INTO `trains` (`id`, `nom`, `capacite_train`, `vitesse`, `etat`) VALUES
+(7, 'train', 200, 150, 1),
+(8, 'hghj', 400, 150, 1),
+(9, 'tr1', 400, 150, 1),
+(10, 'gfg', 100, 200, 1),
+(11, 'khjkh', 100, 150, 1),
+(12, 'train44', 200, 250, 1);
 
 -- --------------------------------------------------------
 
@@ -183,8 +167,11 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nom`, `email`, `password`, `image`, `id_role`) VALUES
 (1, 'azize', 'azize@gmail.com', '123', '', 1),
 (2, 'youssef', 'youssef@gmail.com', '000', '', 1),
-(3, 'jamal', 'jamal@gmail.com', '1213', '', 2),
-(4, 'youssef', 'youssef@gmail.com', NULL, NULL, 2);
+(3, 'jamal', 'jamal@gmail.com', '1213', '', 1),
+(4, 'youssef', 'youssef@gmail.com', NULL, NULL, 1),
+(7, 'JHZKJH JDJJD', 'azize@gmail.com', NULL, NULL, 2),
+(8, 'JHZKJH JDJJDyr(y', 'azize@gmail.com', NULL, NULL, 2),
+(9, 'ELHATHOUT ABDELAZIZ', 'a.elhathout@student.youcode.ma', NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -606,22 +593,25 @@ INSERT INTO `villes` (`id`, `nom`, `region`) VALUES
 
 CREATE TABLE `voyages` (
   `id` int(11) NOT NULL,
-  `date_dep` datetime DEFAULT NULL,
-  `date_arr` datetime DEFAULT NULL,
+  `date_dep` date DEFAULT NULL,
+  `date_arr` date DEFAULT NULL,
+  `cap_voyage` int(11) NOT NULL,
+  `prix_voyage` int(11) NOT NULL,
   `id_train` int(11) DEFAULT NULL,
   `id_gare_dep` int(11) DEFAULT NULL,
   `id_gare_arr` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Index pour les tables déchargées
+-- Déchargement des données de la table `voyages`
 --
 
+INSERT INTO `voyages` (`id`, `date_dep`, `date_arr`, `cap_voyage`, `prix_voyage`, `id_train`, `id_gare_dep`, `id_gare_arr`) VALUES
+(4, '2022-12-10', '2022-12-02', 0, 0, 7, 1, 2);
+
 --
--- Index pour la table `classes`
+-- Index pour les tables déchargées
 --
-ALTER TABLE `classes`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `commentaires`
@@ -649,8 +639,7 @@ ALTER TABLE `region`
 ALTER TABLE `reservations`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_voyage` (`id_voyage`),
-  ADD KEY `id_classe` (`id_classe`);
+  ADD KEY `id_voyage` (`id_voyage`);
 
 --
 -- Index pour la table `roles`
@@ -692,12 +681,6 @@ ALTER TABLE `voyages`
 --
 
 --
--- AUTO_INCREMENT pour la table `classes`
---
-ALTER TABLE `classes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
@@ -707,7 +690,7 @@ ALTER TABLE `commentaires`
 -- AUTO_INCREMENT pour la table `gares`
 --
 ALTER TABLE `gares`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `region`
@@ -731,13 +714,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT pour la table `trains`
 --
 ALTER TABLE `trains`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `villes`
@@ -749,7 +732,7 @@ ALTER TABLE `villes`
 -- AUTO_INCREMENT pour la table `voyages`
 --
 ALTER TABLE `voyages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Contraintes pour les tables déchargées
@@ -772,8 +755,7 @@ ALTER TABLE `gares`
 --
 ALTER TABLE `reservations`
   ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `classes` (`id`),
-  ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`id_voyage`) REFERENCES `voyages` (`id`),
-  ADD CONSTRAINT `reservations_ibfk_3` FOREIGN KEY (`id_classe`) REFERENCES `classes` (`id`);
+  ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`id_voyage`) REFERENCES `voyages` (`id`);
 
 --
 -- Contraintes pour la table `users`

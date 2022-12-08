@@ -2,7 +2,8 @@
 
 require_once '../modal/voyagesModal.php';
 session_start();
-
+$para = $_GET['para'];
+echo $para;
 if (isset($_POST['update'])) updateVoyage();
 
 function updateVoyage(){

@@ -63,7 +63,19 @@
                 <span>Voyages</span></a>
         </li>
 
+         <!-- Divider -->
+         <hr class="sidebar-divider">
+<li class="nav-item">
+            <a class="nav-link" href="reservations.php">
+                <i class="fa fa-dollar"></i>
+                <span>Reservations</span></a>
+        </li>
+
+         <!-- Divider -->
+         <hr class="sidebar-divider">
     </ul>
+
+    
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->

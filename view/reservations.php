@@ -1,24 +1,22 @@
 <?php
 
-include '../modal/trainesModal.php';
-include '../modal/garesModal.php';
-include '../modal/voyagesModal.php';
-session_start();
-//voyages
-$voyage = new VoyagesModal;
-$resultVoyage = $voyage->getVoyages();
-//grt traines
-$train = new TrainesModal();
-$resultTrain = $train->getTraines();
-//gare depart
-$gare = new GaresModal;
-$resultGare = $gare->getGares();
-//gare d'arriver
-$gare2 = new GaresModal;
-$resultGare2 = $gare2->getGares();
-//classes
 
+
+
+
+// echo 'hi reservations';
+
+// include '../modal/voyagesModal.php';
+// include '../modal/reservationsModal.php';
+// session_start();
+// //voyages
+// $voyage = new VoyagesModal();
+// $resultVoyage = $voyage->getVoyages();
+// //reservations
+// $reservation = new ResevationModal();
+// $resultReservation =$reservation->getReservation();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,17 +61,17 @@ $resultGare2 = $gare2->getGares();
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-5">
-                    <h1 class="h3 mb-0 text-gray-800">Voyages</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Reservations</h1>
                    
                 </div>
                 <!-- alert -->
   <!-- alert -->
-  <?php if (isset($_SESSION['add-voyage'])) {?>
+  <?php if (isset($_SESSION['add-reservation'])) {?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <?php 
-                  echo $_SESSION['add-voyage'];
+                  echo $_SESSION['add-reservation'];
                
-                unset($_SESSION['add-voyage']);
+                unset($_SESSION['add-reservation']);
                  ?>
                 <button type="button" class="btn-close rounded bg-success float-right" data-bs-dismiss="alert" aria-label="Close"><i class="fa fa-times"></i></button>
               </div>
@@ -81,9 +79,9 @@ $resultGare2 = $gare2->getGares();
                 <!-- Content Row -->
                 <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between">
-                          <div> <h6 class="mt-1 font-weight-bold text-primary">Voyages</h6></div> 
+                          <div> <h6 class="mt-1 font-weight-bold text-primary">Reservations</h6></div> 
                             <div class=''>
-                                <button type="button" class="btn btn-success btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addVoyage" id="add-voyage">
+                                <button type="button" class="btn btn-success btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addReservation" id="add-reservation">
                                   <span>Add &nbsp;<i class="fa fa-car"></i></span> 
                                 </button>
                               </div>
@@ -91,41 +89,33 @@ $resultGare2 = $gare2->getGares();
                         <div class="card-body">
                         
                             <div class="table-responsive">
-                            <table id="table-gares" class="table table-striped" style="width:100%">
+                            <table id="table-reservations" class="table table-striped" style="width:100%">
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">dat_dep</th>
-            <th scope="col">dat_arriv</th>
-            <th scope="col">cap_voyage</th>
-            <th scope="col">prix_voyage</th>
-            <th scope="col">train</th>
-            <th scope="col">gare_dep</th>
-            <th scope="col">gare_arr</th>
+            <th scope="col">#</th>
+            <th scope="col">#</th>
+            <th scope="col">#</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          <?php
-          foreach($resultVoyage as $voyage){
-          ?>
+         
         <tr>
-              <th scope="row"><?php echo $voyage['id']; ?></th>
-              <td id='td-1'><?php echo $voyage['date_dep']; ?></td>
-              <td id='td-2'><?php echo $voyage['date_arr']; ?></td>
-              <td id='td-2-1'><?php echo $voyage['cap_voyage']; ?></td>
-              <td id='td-2-2'><?php echo $voyage['prix_voyage']; ?></td>
-              <td id='td-3'><?php echo $voyage['id_train']; ?></td>
-              <td id='td-4'><?php echo $voyage['id_gare_dep']; ?></td>
-              <td id='td-5'><?php echo $voyage['id_gare_arr']; ?></td>
+              <th scope="row"><?php echo '1'; ?></th>
+              <td id='td-1'><?php echo '1';?></td>
+              <td>gg</td>
+              <td>ff</td>
               <td>
               <button data-bs-toggle="modal" data-bs-target="#addVoyage" onclick="edit(<?php echo $voyage['id']; ?>)"  class="btn btn-warning"  id="<?php echo $voyage['id']; ?>"><i class="fa fa-edit"></i></button>
              
-             <a  href="../controller/deleteVoyage.php?id=<?php echo $voyage['id']; ?>" onclick="return confirm('Are you sure you want to delete this voyage?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+             <a  href="../controller/deleteReservation.php?id=<?php echo $voyage['id']; ?>" onclick="return confirm('Are you sure you want to delete this voyage?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 
               </td>
         </tr>      
-     <?php }?>
+      
+     
+  
         </tbody>
        
        </table>
@@ -149,14 +139,14 @@ $resultGare2 = $gare2->getGares();
    </div>
    
    <!-- Modal -->
-   <div class="modal fade" id="addVoyage" tabindex="-1" role="dialog" aria-labelledby="addGare" aria-hidden="true">
+   <div class="modal fade" id="addReservation" tabindex="-1" role="dialog" aria-labelledby="addGare" aria-hidden="true">
      <div class="modal-dialog">
        <div class="modal-content">
          <div class="modal-header">
            <h5 class="modal-title" id="staticBackdropLabel">Add train</h5>
            <button type="button" class="btn-close rounded" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
          </div>
-       <form method="POST" action="../controller/voyagesAdd.php" id="form-voyage">
+       <form method="POST" action="../controller/ReservationAdd.php" id="form-voyage">
        <div class="modal-body">
    
    <div class="row">
@@ -238,8 +228,8 @@ $resultGare2 = $gare2->getGares();
    </div>
    <div class="modal-footer">
    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-   <button  type="submit" name="update" class="btn btn-warning" id="voyage-update-btn">Update</button>
-   <button type="submit" name="save" class="btn btn-primary voyage-action-btn" id="voyage-save-btn">Save</button>
+   <button  type="submit" name="update" class="btn btn-warning" id="reservation-update-btn">Update</button>
+   <button type="submit" name="save" class="btn btn-primary reservation-action-btn" id="reservation-save-btn">Save</button>
    </div>
     </form>
        </div>
@@ -275,43 +265,43 @@ $resultGare2 = $gare2->getGares();
    <script >
  
     //    //btn of edit
-       function edit(id){
-         $("#voyage-save-btn").css("display", "none");
-         $("#voyage-update-btn").css("display", "block");
+    //    function edit(id){
+    //      $("#voyage-save-btn").css("display", "none");
+    //      $("#voyage-update-btn").css("display", "block");
    
-    //      // change action
-         $('#form-voyage').attr('action', '../controller/updateVoyage.php');
-         $('#voyage-id').val(id);
-           $('#voyage-date-dep').val($('#'+id).parent().parent().children('#td-1').html());
-           $('#voyage-date-arr').val($('#'+id).parent().parent().children('#td-2').html());
-           $('#cap-voyage').val($('#'+id).parent().parent().children('#td-2-1').html());
-           $('#prix-voyage').val($('#'+id).parent().parent().children('#td-2-2').html());
-           let train=  $('#'+id).parent().parent().children('#td-3').html();
-           $('#voyage-train').val(train).change();
-           let gare_dep = $('#'+id).parent().parent().children('#td-4').html();
-           $('#voyage-gare-dep').val(gare_dep).change();
-           let gare_arr = $('#'+id).parent().parent().children('#td-5').html();
-           $('#voyage-gare-arr').val(gare_arr).change();
+    // //      // change action
+    //      $('#form-voyage').attr('action', '../controller/updateVoyage.php');
+    //      $('#voyage-id').val(id);
+    //        $('#voyage-date-dep').val($('#'+id).parent().parent().children('#td-1').html());
+    //        $('#voyage-date-arr').val($('#'+id).parent().parent().children('#td-2').html());
+    //        $('#cap-voyage').val($('#'+id).parent().parent().children('#td-2-1').html());
+    //        $('#prix-voyage').val($('#'+id).parent().parent().children('#td-2-2').html());
+    //        let train=  $('#'+id).parent().parent().children('#td-3').html();
+    //        $('#voyage-train').val(train).change();
+    //        let gare_dep = $('#'+id).parent().parent().children('#td-4').html();
+    //        $('#voyage-gare-dep').val(gare_dep).change();
+    //        let gare_arr = $('#'+id).parent().parent().children('#td-5').html();
+    //        $('#voyage-gare-arr').val(gare_arr).change();
          
-          // console.log($('#'+id).parent().parent().children('#td-1').html())
-          // let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
+    //       // console.log($('#'+id).parent().parent().children('#td-1').html())
+    //       // let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
         
-          // $('#gare-ville').val(ville).change();
+    //       // $('#gare-ville').val(ville).change();
         
-       }
+    //    }
     
     // //    //btn of save
-    $("#add-voyage").click(function(){
-         $("#voyage-save-btn").css("display", "block");
-         $("#voyage-update-btn").css("display", "none");
-         $("#form-voyage")[0].reset(); //Syntax to convert jQuery element to a JavaScript object.
+    // $("#add-voyage").click(function(){
+    //      $("#voyage-save-btn").css("display", "block");
+    //      $("#voyage-update-btn").css("display", "none");
+    //      $("#form-voyage")[0].reset(); //Syntax to convert jQuery element to a JavaScript object.
    
-    });
+    // });
    
     //    // $(document).ready(function() {
        
     //   //data table
-    //    $('#table-gares').DataTable();
+       $('#table-reservations').DataTable();
     //   //verification inputs
     //       $('#nom-gare').keyup(function(){
     //      let nom_gare = $(this).val();
