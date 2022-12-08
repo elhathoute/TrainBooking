@@ -84,8 +84,7 @@ $resultTrain = $train->getTraines();
         <tr>
             <th scope="col">#</th>
             <th scope="col">Nom</th>
-            <th scope="col">cap_first</th>
-            <th scope="col">cap_second</th>
+            <th scope="col">cap_train</th>
             <th scope="col">Vitesse</th>
             <th scope="col">Etat</th>
             <th scope="col">Action</th>
@@ -100,8 +99,7 @@ $resultTrain = $train->getTraines();
             <tr>
               <th scope="row"><?php echo $train['id']; ?></th>
               <td id='td-1'><?php echo $train['nom']; ?></td>
-              <td id='td-2'><?php echo $train['capacite_first']; ?></td>
-              <td id='td-3'><?php echo $train['capacite_second']; ?></td>
+              <td id='td-2'><?php echo $train['capacite_train']; ?></td>
               <td id='td-4'><span id="td-4-1"><?php echo $train['vitesse'].'</span>'. ' <span style=" color: crimson;">km/h</span>'; ?></td>
               <td id='td-5'><?php if ($train['etat']==1) echo ' <span  style=" color: green;">dispo</span>';
                   else echo '<span   style=" color: red;">non-dispo</span>' ?></td>
@@ -157,28 +155,15 @@ $resultTrain = $train->getTraines();
     <input type="hidden" class="form-control" readonly id="train-id" value="" name="id">
   </div>
 
-  <div class="mb-1 col-md-6">
+  <div class="mb-1 col-md-12">
     <label class="form-label">nom</label>
     <input type="text" class="form-control " id="nom-train" name="nom-train" autocomplete="off" placeholder="Exemple:train" required />
   </div>
 
-  <div class="mb-1 col-md-6"> 
-  <label class="form-label">cap-first</label>
+  <div class="mb-1 col-md-12"> 
+  <label class="form-label">cap-train</label>
   <div>
-  <select class="form-control " id="train-cap-first" name="train-cap-first" >
-    <option value="" selected>Please select</option>
-    <option id="" value="100" >100 personne</option>
-    <option id="" value="200" >200 personne</option>
-    <option id="" value="300" >300 personne</option>
-    <option id="" value="400" >400 personne</option>
-  </select>
-  </div>
-</div>
-
-<div class="mb-1 col-md-6"> 
-  <label class="form-label">cap-second</label>
-  <div>
-  <select class="form-control" id="train-cap-second" name="train-cap-second" >
+  <select class="form-control " id="train-capacite" name="train-capacite" >
     <option value="" selected>Please select</option>
     <option id="" value="100" >100 personne</option>
     <option id="" value="200" >200 personne</option>
@@ -189,7 +174,9 @@ $resultTrain = $train->getTraines();
 </div>
 
 
-<div class="mb-1 col-md-6"> 
+
+
+<div class="mb-1 col-md-12"> 
   <label class="form-label">vitesse</label>
   <div>
   <select class="form-control" id="train-vitesse" name="train-vitesse" >
@@ -268,10 +255,10 @@ $resultTrain = $train->getTraines();
       // let a=$('#'+'+id+');
       // console.log( $('#'+id).parent().parent().children('#td-4').children('#td-4-1').html());
        $('#nom-train').val($('#'+id).parent().parent().children('#td-1').html());
-       let select_cap_first = $('#'+id).parent().parent().children('#td-2').html();
-       $('#train-cap-first').val(select_cap_first).change();
-       let select_cap_second = $('#'+id).parent().parent().children('#td-3').html();
-       $('#train-cap-second').val(select_cap_second).change();
+       let select_train_capacite = $('#'+id).parent().parent().children('#td-2').html();
+       $('#train-capacite').val(select_train_capacite).change();
+      //  let select_cap_second = $('#'+id).parent().parent().children('#td-3').html();
+      //  $('#train-cap-second').val(select_cap_second).change();
        let train_vitesse = $('#'+id).parent().parent().children('#td-4').children('#td-4-1').html();
        $('#train-vitesse').val(train_vitesse).change();
        let etat_train = $('#'+id).parent().parent().children('#td-5').text();

@@ -1,5 +1,7 @@
 <?php
 require_once 'dbTrain.php';
+require_once '../classes/traines.class.php';
+
 
     class TrainesModal extends DbTrain {
        
@@ -11,15 +13,15 @@ require_once 'dbTrain.php';
         }
       
     
-        public function insertTraine($id,$nom,$cap_first,$cap_second,$vitesse,$etat){
-            $sql = "INSERT INTO trains (id,nom,capacite_first,capacite_second,vitesse,etat) VALUES(?,?,?,?,?,?)";
+        public function insertTraine($id,$nom,$cap_train,$vitesse,$etat){
+            $sql = "INSERT INTO trains (id,nom,capacite_train,vitesse,etat) VALUES(?,?,?,?,?)";
             $stm = $this->connexion()->prepare($sql);
-             $stm->execute([$id,$nom,$cap_first,$cap_second,$vitesse,$etat]);
+             $stm->execute([$id,$nom,$cap_train,$vitesse,$etat]);
             }
-            public function  updateTraine($nom,$cap_first,$cap_second,$vitesse,$etat,$id){
-                $sql = "UPDATE  trains set nom=?,capacite_first=?,capacite_second=?,vitesse=?,etat=? where id=?";
+            public function  updateTraine(Traines $train){
+                $sql = "UPDATE  trains set nom=?,capacite_train=?,vitesse=?,etat=? where id=?";
                 $stm = $this->connexion()->prepare($sql);
-                 $stm->execute([$nom,$cap_first,$cap_second,$vitesse,$etat,$id]);
+                 $stm->execute([$train->getNom(),$train->getCapacite(), $train->getVitesse(),$train->getEtat(),$train->getId()]);
                 }
     public function deleteTraine($id){
         $sql = "DELETE FROM trains  where id=?";
