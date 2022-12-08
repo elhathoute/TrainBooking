@@ -6,14 +6,15 @@ class Reserve {
     private $date_reserve;
     private $id_user;
     private $id_voyage;
-
+    private $etat;
     // method
-    public function __construct($id, $date_reserve, $id_user, $id_voyage)
+    public function __construct($id, $date_reserve, $id_user, $id_voyage,$etat)
     {
         $this->id           = $id;
         $this->date_reserve = $date_reserve;
         $this->id_user      = $id_user;
         $this->id_voyage    = $id_voyage;
+        $this->etat   = $etat;
     }
 
     //setters
@@ -36,6 +37,10 @@ class Reserve {
     {
         $this->id_voyage = $id_voyage_reserve;
     }
+    public function setEtatReserve($etat)
+    {
+        $this->etat = $etat;
+    }
     
     //gettters
     public function getIdReserve()
@@ -56,5 +61,9 @@ class Reserve {
     public function getIdvoyageReserve()
     {
         return $this->id_voyage;
+    }
+    public function getEtatReserve()
+    {
+        return $this->etat;
     }
 }   
