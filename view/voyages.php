@@ -212,7 +212,8 @@ $resultGare2 = $gare2->getGares();
      </select>
      </div>
    </div>
-    
+
+  
    <div class="mb-1 col-md-6"> 
      <label class="form-label">gare-arr</label>
      <div>
@@ -296,7 +297,9 @@ $resultGare2 = $gare2->getGares();
           // let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
         
           // $('#gare-ville').val(ville).change();
+        
        }
+    
     // //    //btn of save
     $("#add-voyage").click(function(){
          $("#voyage-save-btn").css("display", "block");
