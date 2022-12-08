@@ -135,11 +135,11 @@
    
      <div class="mb-1 col-md-6">
        <label class="form-label">date-dep</label>
-       <input type="datetime-local" class="form-control " id="voyage-date-dep" name="voyage-date-dep" autocomplete="off" placeholder="Exemple:gare" required />
+       <input type="date" class="form-control " id="voyage-date-dep" name="voyage-date-dep" autocomplete="off" placeholder="Exemple:gare" required />
      </div>
      <div class="mb-1 col-md-6">
        <label class="form-label">date-arr</label>
-       <input type="datetime-local" class="form-control " id="voyage-date-arr" name="voyage-date-arr" autocomplete="off" placeholder="Exemple:gare" required />
+       <input type="date" class="form-control " id="voyage-date-arr" name="voyage-date-arr" autocomplete="off" placeholder="Exemple:gare" required />
      </div>
    
    
