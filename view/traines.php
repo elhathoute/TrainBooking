@@ -146,7 +146,7 @@ $resultTrain = $train->getTraines();
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Add train</h5>
+        <h5 class="modal-title" id="title-train">Add train</h5>
         <button type="button" class="btn-close rounded" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
       </div>
     <form method="POST" action="../controller/trainesAdd.php" id="form-train">
@@ -261,6 +261,7 @@ $resultTrain = $train->getTraines();
       $("#train-etat").css("display", "block");
       // change action
       $('#form-train').attr('action', '../controller/updateTrain.php');
+    
 
       console.log('hi'+id);
       $('#train-id').val(id);
