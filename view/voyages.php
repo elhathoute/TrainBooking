@@ -2,7 +2,6 @@
 
 include '../modal/trainesModal.php';
 include '../modal/garesModal.php';
-include '../modal/classesModal.php';
 include '../modal/voyagesModal.php';
 session_start();
 //voyages
@@ -18,8 +17,7 @@ $resultGare = $gare->getGares();
 $gare2 = new GaresModal;
 $resultGare2 = $gare2->getGares();
 //classes
-$classe = new ClassesModal;
-$resultClasse = $classe->getClasses();
+
 ?>
 
 <!DOCTYPE html>
@@ -99,10 +97,11 @@ $resultClasse = $classe->getClasses();
             <th scope="col">#</th>
             <th scope="col">dat_dep</th>
             <th scope="col">dat_arriv</th>
+            <th scope="col">cap_voyage</th>
+            <th scope="col">prix_voyage</th>
             <th scope="col">train</th>
             <th scope="col">gare_dep</th>
             <th scope="col">gare_arr</th>
-            <th scope="col">classe</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -114,10 +113,11 @@ $resultClasse = $classe->getClasses();
               <th scope="row"><?php echo $voyage['id']; ?></th>
               <td id='td-1'><?php echo $voyage['date_dep']; ?></td>
               <td id='td-2'><?php echo $voyage['date_arr']; ?></td>
+              <td id='td-2-1'><?php echo $voyage['cap_voyage']; ?></td>
+              <td id='td-2-2'><?php echo $voyage['prix_voyage']; ?></td>
               <td id='td-3'><?php echo $voyage['id_train']; ?></td>
               <td id='td-4'><?php echo $voyage['id_gare_dep']; ?></td>
               <td id='td-5'><?php echo $voyage['id_gare_arr']; ?></td>
-              <td id='td-6'><?php echo $voyage['id_classe']; ?></td>
               <td>
               <button data-bs-toggle="modal" data-bs-target="#addVoyage" onclick="edit(<?php echo $voyage['id']; ?>)"  class="btn btn-warning"  id="<?php echo $voyage['id']; ?>"><i class="fa fa-edit"></i></button>
              
@@ -173,8 +173,17 @@ $resultClasse = $classe->getClasses();
        <input type="date" class="form-control " id="voyage-date-arr" name="voyage-date-arr" autocomplete="off" placeholder="Exemple:gare" required />
      </div>
    
+     <div class="mb-1 col-md-6">
+       <label class="form-label">cap-voyage</label>
+       <input type="number" min="0" class="form-control " id="cap-voyage" name="cap-voyage" autocomplete="off" placeholder="0" required />
+     </div>
+
+     <div class="mb-1 col-md-6">
+       <label class="form-label">prix-voyage</label>
+       <input type="number" min="0" class="form-control " id="prix-voyage" name="prix-voyage" autocomplete="off" placeholder="0 DH" required />
+     </div>
    
-     <div class="mb-1 col-md-6"> 
+     <div class="mb-1 col-md-12"> 
      <label class="form-label">train</label>
      <div>
      <select class="form-control " id="voyage-train" name="voyage-train" >
@@ -220,21 +229,7 @@ $resultClasse = $classe->getClasses();
      </div>
    </div>
 
-   <div class="mb-1 col-md-6"> 
-     <label class="form-label">classe</label>
-     <div>
-     <select class="form-control " id="voyage-classe" name="voyage-classe" >
-       <option value="" selected>Please select</option>
-       <?php
-       
-       foreach ($resultClasse as $classe) {
-       ?>
-       <option id="prix-voyage"    value="<?php echo $classe['id']; ?>" ><?php echo $classe['nom']; ?></option>
-  
-      <?php } ?>
-     </select>
-     </div>
-   </div>
+ 
 
   
 
@@ -288,18 +283,15 @@ $resultClasse = $classe->getClasses();
          $('#voyage-id').val(id);
            $('#voyage-date-dep').val($('#'+id).parent().parent().children('#td-1').html());
            $('#voyage-date-arr').val($('#'+id).parent().parent().children('#td-2').html());
-
-          
-         
-      
+           $('#cap-voyage').val($('#'+id).parent().parent().children('#td-2-1').html());
+           $('#prix-voyage').val($('#'+id).parent().parent().children('#td-2-2').html());
            let train=  $('#'+id).parent().parent().children('#td-3').html();
            $('#voyage-train').val(train).change();
            let gare_dep = $('#'+id).parent().parent().children('#td-4').html();
            $('#voyage-gare-dep').val(gare_dep).change();
            let gare_arr = $('#'+id).parent().parent().children('#td-5').html();
            $('#voyage-gare-arr').val(gare_arr).change();
-           let classe = $('#'+id).parent().parent().children('#td-6').html();
-           $('#voyage-classe').val(classe).change();
+         
           // console.log($('#'+id).parent().parent().children('#td-1').html())
           // let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
         
