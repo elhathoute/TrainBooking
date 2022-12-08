@@ -12,20 +12,20 @@ require_once 'dbTrain.php';
         }
       
     
-    //     public function insertGare($id,$nom,$ville){
-    //         $sql = "INSERT INTO gares (id,nom,id_ville) VALUES(?,?,?)";
-    //         $stm = $this->connexion()->prepare($sql);
-    //          $stm->execute([$id,$nom,$ville]);
-    //         }
-    //         public function  updateGare($nom,$ville,$id){
-    //             $sql = "UPDATE  gares set nom=?,id_ville=? where id=?";
-    //             $stm = $this->connexion()->prepare($sql);
-    //              $stm->execute([$nom,$ville,$id]);
-    //             }
-    // public function deleteGare($id){
-    //     $sql = "DELETE FROM gares  where id=?";
-    //             $stm = $this->connexion()->prepare($sql);
-    //              $stm->execute([$id]);
-    // }
+        public function insertReservation(Reserve $reservation){
+            $sql = "INSERT INTO `reservations`(`id`, `date_reserve`, `id_user`, `id_voyage`, `etat`) VALUES(?,?,?,?,?)";
+            $stm = $this->connexion()->prepare($sql);
+             $stm->execute([$reservation->getIdReserve(),$reservation->getDateReserve(),$reservation->getIduserReserve(),$reservation->getIdvoyageReserve(),$reservation->getEtatReserve()]);
+            }
+            public function  updateReservation(Reserve $reservation){
+                $sql = "UPDATE reservations SET date_reserve=?,id_user=?,id_voyage=?,etat=? WHERE id=?";
+                $stm = $this->connexion()->prepare($sql);
+                 $stm->execute([$reservation->getDateReserve(),$reservation->getIduserReserve(),$reservation->getIdvoyageReserve(),$reservation->getEtatReserve(),$reservation->getIdReserve()]);
+                }
+    public function deleteReservation($id){
+        $sql = "DELETE FROM reservations  where id=?";
+                $stm = $this->connexion()->prepare($sql);
+                 $stm->execute([$id]);
+    }
           
 }

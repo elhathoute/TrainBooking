@@ -1,20 +1,13 @@
 <?php
-
-
-
-
-
-// echo 'hi reservations';
-
-// include '../modal/voyagesModal.php';
-// include '../modal/reservationsModal.php';
-// session_start();
-// //voyages
-// $voyage = new VoyagesModal();
-// $resultVoyage = $voyage->getVoyages();
-// //reservations
-// $reservation = new ResevationModal();
-// $resultReservation =$reservation->getReservation();
+include '../modal/voyagesModal.php';
+include '../modal/reservationsModal.php';
+session_start();
+//voyages
+$voyage = new VoyagesModal();
+$resultVoyage = $voyage->getVoyages();
+//reservations
+$reservation = new ResevationModal();
+$resultReservation =$reservation->getReservation();
 ?>
 
 
@@ -82,7 +75,7 @@
                           <div> <h6 class="mt-1 font-weight-bold text-primary">Reservations</h6></div> 
                             <div class=''>
                                 <button type="button" class="btn btn-success btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addReservation" id="add-reservation">
-                                  <span>Add &nbsp;<i class="fa fa-car"></i></span> 
+                                  <span>Add &nbsp;<i class="fa fa-dollar"></i></span> 
                                 </button>
                               </div>
                         </div>
@@ -93,27 +86,30 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">#</th>
-            <th scope="col">#</th>
-            <th scope="col">#</th>
+            <th scope="col">date_reservation</th>
+            <th scope="col">user</th>
+            <th scope="col">voyage</th>
+            <th scope="col">etat</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-         
+         <?php foreach($resultReservation as $reservation) {?>
         <tr>
-              <th scope="row"><?php echo '1'; ?></th>
-              <td id='td-1'><?php echo '1';?></td>
-              <td>gg</td>
-              <td>ff</td>
+              <th scope="row"><?php echo $reservation['id']; ?></th>
+              <td id='td-1'><?php echo $reservation['date_reserve']; ?></td>
+              <td id='td-2'><?php echo $reservation['user']; ?></td>
+              <td id='td-3'><?php echo $reservation['id_voyage']; ?></td>
+              <td id='td-4'><?php echo $reservation['etat']; ?></td>
+              
               <td>
-              <button data-bs-toggle="modal" data-bs-target="#addVoyage" onclick="edit(<?php echo $voyage['id']; ?>)"  class="btn btn-warning"  id="<?php echo $voyage['id']; ?>"><i class="fa fa-edit"></i></button>
+              <button data-bs-toggle="modal" data-bs-target="#addReservation" onclick="edit(<?php echo $reservation['id']; ?>)"  class="btn btn-warning"  id="<?php echo $reservation['id']; ?>"><i class="fa fa-edit"></i></button>
              
-             <a  href="../controller/deleteReservation.php?id=<?php echo $voyage['id']; ?>" onclick="return confirm('Are you sure you want to delete this voyage?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+             <a  href="../controller/deleteReservation.php?id=<?php echo $reservation['id']; ?>" onclick="return confirm('Are you sure you want to delete this reservatio?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 
               </td>
         </tr>      
-      
+      <?php } ?>
      
   
         </tbody>
@@ -143,86 +139,56 @@
      <div class="modal-dialog">
        <div class="modal-content">
          <div class="modal-header">
-           <h5 class="modal-title" id="staticBackdropLabel">Add train</h5>
+           <h5 class="modal-title" id="staticBackdropLabel">Add reservation</h5>
            <button type="button" class="btn-close rounded" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
          </div>
-       <form method="POST" action="../controller/ReservationAdd.php" id="form-voyage">
+       <form method="POST" action="../controller/ReservationAdd.php" id="form-reservation">
        <div class="modal-body">
    
    <div class="row">
      <div class="mb-3 col-12">
-       <input type="hidden" class="form-control" readonly id="voyage-id" value="" name="id">
+       <input type="hidden" class="form-control" readonly id="reservation-id" value="" name="id">
      </div>
    
-     <div class="mb-1 col-md-6">
-       <label class="form-label">date-dep</label>
-       <input type="date" class="form-control " id="voyage-date-dep" name="voyage-date-dep" autocomplete="off" placeholder="Exemple:gare" required />
-     </div>
-     <div class="mb-1 col-md-6">
-       <label class="form-label">date-arr</label>
-       <input type="date" class="form-control " id="voyage-date-arr" name="voyage-date-arr" autocomplete="off" placeholder="Exemple:gare" required />
+     <div class="mb-1 col-md-12">
+       <label class="form-label">reservation-date</label>
+       <input type="date" class="form-control " id="reservation-date" name="reservation-date" autocomplete="off" required />
      </div>
    
-     <div class="mb-1 col-md-6">
-       <label class="form-label">cap-voyage</label>
-       <input type="number" min="0" class="form-control " id="cap-voyage" name="cap-voyage" autocomplete="off" placeholder="0" required />
+   
+     <div class="mb-1 col-md-12">
+       <label class="form-label">reservation-user</label>
+       <input type="text" class="form-control " value="1" id="reservation-user" name="reservation-user" autocomplete="off" readonly required />
      </div>
 
-     <div class="mb-1 col-md-6">
-       <label class="form-label">prix-voyage</label>
-       <input type="number" min="0" class="form-control " id="prix-voyage" name="prix-voyage" autocomplete="off" placeholder="0 DH" required />
-     </div>
    
      <div class="mb-1 col-md-12"> 
-     <label class="form-label">train</label>
+     <label class="form-label">reservation_voyage</label>
      <div>
-     <select class="form-control " id="voyage-train" name="voyage-train" >
+     <select class="form-control " id="reservation-voyage" name="reservation-voyage" >
        <option value="" selected>Please select</option>
        <?php
        
-       foreach ($resultTrain  as $train) {
+       foreach ($resultVoyage  as $voyage) {
        ?>
-       <option id="" value="<?php echo $train['id']; ?>" ><?php echo $train['nom']; ?></option>
+       <option id="" value="<?php echo $voyage['id']; ?>" ><?php echo $voyage['id']; ?></option>
       <?php } ?>
      </select>
      </div>
    </div>
    
-   <div class="mb-1 col-md-6"> 
-     <label class="form-label">gare-dep</label>
+   <div class="mb-1 col-md-12"> 
+     <label class="form-label">reservation_etat</label>
      <div>
-     <select class="form-control " id="voyage-gare-dep" name="voyage-gare-dep" >
+     <select class="form-control " id="reservation-etat" name="reservation-etat" >
        <option value="" selected>Please select</option>
-       <?php
-       
-       foreach ($resultGare as $gare) {
-       ?>
-       <option id="" value="<?php echo $gare['id']; ?>" ><?php echo $gare['nom']; ?></option>
-      <?php } ?>
+       <option id="" value="1" >confirmer</option>
+       <option id="reservation-etat-2" value="2"  disabled="true">annuler</option>
+
      </select>
      </div>
    </div>
 
-  
-   <div class="mb-1 col-md-6"> 
-     <label class="form-label">gare-arr</label>
-     <div>
-     <select class="form-control " id="voyage-gare-arr" name="voyage-gare-arr" >
-       <option value="" selected>Please select</option>
-    
-       <?php
-       
-       foreach ($resultGare2 as $gare2) {
-       ?>
-      <option id="" value="<?php echo $gare2['id']; ?>" ><?php echo $gare2['nom']; ?></option>
-      <?php } ?>
-     </select>
-     </div>
-   </div>
-
- 
-
-  
 
    </div>
    </div>
@@ -264,52 +230,34 @@
        <script src="../js/demo/datatables-demo.js"></script>
    <script >
  
-    //    //btn of edit
-    //    function edit(id){
-    //      $("#voyage-save-btn").css("display", "none");
-    //      $("#voyage-update-btn").css("display", "block");
+       //btn of edit
+       function edit(id){
+         $("#reservation-save-btn").css("display", "none");
+         $("#reservation-update-btn").css("display", "block");
    
-    // //      // change action
-    //      $('#form-voyage').attr('action', '../controller/updateVoyage.php');
-    //      $('#voyage-id').val(id);
-    //        $('#voyage-date-dep').val($('#'+id).parent().parent().children('#td-1').html());
-    //        $('#voyage-date-arr').val($('#'+id).parent().parent().children('#td-2').html());
-    //        $('#cap-voyage').val($('#'+id).parent().parent().children('#td-2-1').html());
-    //        $('#prix-voyage').val($('#'+id).parent().parent().children('#td-2-2').html());
-    //        let train=  $('#'+id).parent().parent().children('#td-3').html();
-    //        $('#voyage-train').val(train).change();
-    //        let gare_dep = $('#'+id).parent().parent().children('#td-4').html();
-    //        $('#voyage-gare-dep').val(gare_dep).change();
-    //        let gare_arr = $('#'+id).parent().parent().children('#td-5').html();
-    //        $('#voyage-gare-arr').val(gare_arr).change();
-         
-    //       // console.log($('#'+id).parent().parent().children('#td-1').html())
-    //       // let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
+    //      // change action
+           $('#form-reservation').attr('action', '../controller/updateReservation.php');
+           $('#reservation-id').val(id);
+           $('#reservation-date').val($('#'+id).parent().parent().children('#td-1').html());
+           $('#reservation-user').val($('#'+id).parent().parent().children('#td-2').html());
+           $('#reservation-voyage').val($('#'+id).parent().parent().children('#td-3').html());
+           $('#reservation-etat').val($('#'+id).parent().parent().children('#td-4').html());
+
         
-    //       // $('#gare-ville').val(ville).change();
-        
-    //    }
+       }
     
-    // //    //btn of save
-    // $("#add-voyage").click(function(){
-    //      $("#voyage-save-btn").css("display", "block");
-    //      $("#voyage-update-btn").css("display", "none");
-    //      $("#form-voyage")[0].reset(); //Syntax to convert jQuery element to a JavaScript object.
-   
-    // });
+    //    //btn of save
+    $("#add-reservation").click(function(){
+         $("#reservation-save-btn").css("display", "block");
+         $("#reservation-update-btn").css("display", "none");
+         $("#form-reservation")[0].reset(); //Syntax to convert jQuery element to a JavaScript object.    
+    });
    
     //    // $(document).ready(function() {
        
     //   //data table
        $('#table-reservations').DataTable();
-    //   //verification inputs
-    //       $('#nom-gare').keyup(function(){
-    //      let nom_gare = $(this).val();
-        
-    //   ((nom_gare !='')) ?  $(this).removeClass('is-invalid').addClass('is-valid') : $(this).removeClass('is-valid').addClass('is-invalid') ;
-       
-    //    });
-   
+  
    
    
 //    });
