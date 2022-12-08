@@ -119,9 +119,9 @@ $resultClasse = $classe->getClasses();
               <td id='td-5'><?php echo $voyage['id_gare_arr']; ?></td>
               <td id='td-6'><?php echo $voyage['id_classe']; ?></td>
               <td>
-              <button data-bs-toggle="modal" data-bs-target="#addVoyage" onclick=""  class="btn btn-warning"  id=""><i class="fa fa-edit"></i></button>
+              <button data-bs-toggle="modal" data-bs-target="#addVoyage" onclick="edit(<?php echo $voyage['id']; ?>)"  class="btn btn-warning"  id="<?php echo $voyage['id']; ?>"><i class="fa fa-edit"></i></button>
              
-             <a href="" onclick="return confirm('Are you sure you want to delete this voyage?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+             <a  href="../controller/deleteVoyage.php?id=<?php echo $voyage['id']; ?>" onclick="return confirm('Are you sure you want to delete this voyage?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 
               </td>
         </tr>      
@@ -279,25 +279,39 @@ $resultClasse = $classe->getClasses();
    <script >
  
     //    //btn of edit
-    //    function edit(id){
-    //      $("#gare-save-btn").css("display", "none");
-    //      $("#gare-update-btn").css("display", "block");
+       function edit(id){
+         $("#voyage-save-btn").css("display", "none");
+         $("#voyage-update-btn").css("display", "block");
    
-    // //      // change action
-    //      $('#form-gare').attr('action', '../controller/updateGare.php');
-    //      $('#gare-id').val(id);
-    //       $('#nom-gare').val($('#'+id).parent().parent().children('#td-1').html());
-    //       let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
+    //      // change action
+         $('#form-voyage').attr('action', '../controller/updateVoyage.php');
+         $('#voyage-id').val(id);
+           $('#voyage-date-dep').val($('#'+id).parent().parent().children('#td-1').html());
+           $('#voyage-date-arr').val($('#'+id).parent().parent().children('#td-2').html());
+
+          
+         
+      
+           let train=  $('#'+id).parent().parent().children('#td-3').html();
+           $('#voyage-train').val(train).change();
+           let gare_dep = $('#'+id).parent().parent().children('#td-4').html();
+           $('#voyage-gare-dep').val(gare_dep).change();
+           let gare_arr = $('#'+id).parent().parent().children('#td-5').html();
+           $('#voyage-gare-arr').val(gare_arr).change();
+           let classe = $('#'+id).parent().parent().children('#td-6').html();
+           $('#voyage-classe').val(classe).change();
+          // console.log($('#'+id).parent().parent().children('#td-1').html())
+          // let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
         
-    //       $('#gare-ville').val(ville).change();
-    //    }
+          // $('#gare-ville').val(ville).change();
+       }
     // //    //btn of save
-    // $("#add-gare").click(function(){
-    //      $("#gare-save-btn").css("display", "block");
-    //      $("#gare-update-btn").css("display", "none");
-    //      $("#form-gare")[0].reset(); //Syntax to convert jQuery element to a JavaScript object.
+    $("#add-voyage").click(function(){
+         $("#voyage-save-btn").css("display", "block");
+         $("#voyage-update-btn").css("display", "none");
+         $("#form-voyage")[0].reset(); //Syntax to convert jQuery element to a JavaScript object.
    
-    // });
+    });
    
     //    // $(document).ready(function() {
        
