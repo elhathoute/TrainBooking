@@ -9,10 +9,10 @@ require_once 'dbTrain.php';
         $stm = $this->connexion()->query($sql);
         return $stm;
         }
-        public function insertVoyage($id,$date_dep,$date_arr,$cap_voyage,$prix_voyage,$train,$gare_dep,$gare_arr){
+        public function insertVoyage(Voyages $voyage){
             $sql = "INSERT INTO `voyages`(`id`, `date_dep`, `date_arr`, `cap_voyage`, `prix_voyage`, `id_train`, `id_gare_dep`, `id_gare_arr`) VALUES(?,?,?,?,?,?,?,?)";
             $stm = $this->connexion()->prepare($sql);
-             $stm->execute([$id,$date_dep,$date_arr,$cap_voyage,$prix_voyage,$train,$gare_dep,$gare_arr]);
+             $stm->execute([$voyage->getidVoyage(),$voyage->getdatedepVoyage(),$voyage->getdatearrVoyage(),$voyage->getcapaciteVoyage(),$voyage->getPrixVoyage(),$voyage->getTrainVoyage(),$voyage->getGaredepVoyage(),$voyage->getGarearrVoyage()]);
             }
             public function deleteVoyage($id){
                 $sql = "DELETE FROM voyages  where id=?";
@@ -20,10 +20,10 @@ require_once 'dbTrain.php';
                          $stm->execute([$id]);
             }
 
-            public function  updateVoyage($id,$date_dep, $date_arr,$cap_voyage,$prix_voyage, $train, $gare_dep, $gare_arr){
+            public function  updateVoyage(Voyages $voyage){
                 $sql = "UPDATE `voyages` SET `date_dep`=?,`date_arr`=?,`cap_voyage`=?,`prix_voyage`=?,`id_train`=?,`id_gare_dep`=?,`id_gare_arr`=? WHERE id=?";
                 $stm = $this->connexion()->prepare($sql);
-                 $stm->execute([$date_dep, $date_arr,$cap_voyage,$prix_voyage, $train, $gare_dep, $gare_arr,$id]);
+                 $stm->execute([$voyage->getdatedepVoyage(),$voyage->getdatearrVoyage(),$voyage->getcapaciteVoyage(),$voyage->getPrixVoyage(),$voyage->getTrainVoyage(),$voyage->getGaredepVoyage(),$voyage->getGarearrVoyage(),$voyage->getidVoyage()]);
                 }
                 
 }
