@@ -11,15 +11,15 @@ require_once 'dbTrain.php';
         }
       
     
-        public function insertGare($id,$nom,$ville){
+        public function insertGare(Gares $gare){
             $sql = "INSERT INTO gares (id,nom,id_ville) VALUES(?,?,?)";
             $stm = $this->connexion()->prepare($sql);
-             $stm->execute([$id,$nom,$ville]);
+             $stm->execute([$gare->getIdGare(),$gare->getNomGare(),$gare->getVilleGare()]);
             }
-            public function  updateGare($nom,$ville,$id){
+            public function  updateGare(Gares $gare){
                 $sql = "UPDATE  gares set nom=?,id_ville=? where id=?";
                 $stm = $this->connexion()->prepare($sql);
-                 $stm->execute([$nom,$ville,$id]);
+                 $stm->execute([$gare->getNomGare(),$gare->getVilleGare(),$gare->getIdGare()]);
                 }
     public function deleteGare($id){
         $sql = "DELETE FROM gares  where id=?";
