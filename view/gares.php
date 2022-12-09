@@ -98,14 +98,14 @@ $resultVille = $ville->getVilles();
        ?>
 
          <tr>
-           <th scope="row"><?php echo $gare['id']; ?></th>
+           <th scope="row" class="id-gare"><?php echo $gare['id']; ?></th>
            <td id='td-1'><?php echo $gare['nom']; ?></td>
            <td id='td-2'><input id='td-2-2' type="hidden" value="<?php echo $gare['id-ville']; ?>"><p><?php echo $gare['ville']; ?></p> </td>
            <td>
 
              <button data-bs-toggle="modal" data-bs-target="#addGare" onclick="edit(<?php echo $gare['id']; ?>)"  class="btn btn-warning"  id="<?php echo $gare['id']; ?>"><i class="fa fa-edit"></i></button>
              
-             <a href="../controller/deleteGare.php?id=<?php echo $gare['id']; ?>" onclick="return confirm('Are you sure you want to delete this gare?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+             <a href=""  class="btn btn-danger delete-gare"><i class="fa fa-trash"></i></a>
 
 
            </td>
@@ -138,11 +138,11 @@ $resultVille = $ville->getVilles();
    </div>
    
    <!-- Modal -->
-   <div class="modal fade" id="addGare" tabindex="-1" role="dialog" aria-labelledby="addGare" aria-hidden="true">
+   <div class="modal fade" id="addGare" tabindex="-1" role="dialog" aria-labelledby="addGareModal" aria-hidden="true">
      <div class="modal-dialog">
        <div class="modal-content">
          <div class="modal-header">
-           <h5 class="modal-title" id="staticBackdropLabel">Add train</h5>
+           <h5 class="modal-title" id="addGareLabel">Add train</h5>
            <button type="button" class="btn-close rounded" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
          </div>
        <form method="POST" action="../controller/garesAdd.php" id="form-gare">
@@ -150,18 +150,18 @@ $resultVille = $ville->getVilles();
    
    <div class="row">
      <div class="mb-3 col-12">
-       <input type="hidden" class="form-control" readonly id="gare-id" value="" name="id">
+       <input type="hidden" class="form-control " readonly id="gare-id" value="" name="id">
      </div>
    
      <div class="mb-1 col-md-6">
        <label class="form-label">nom</label>
-       <input type="text" class="form-control " id="nom-gare" name="nom-gare" autocomplete="off" placeholder="Exemple:gare" required />
+       <input type="text" class="form-control verify-form" id="nom-gare" name="nom-gare" autocomplete="off" placeholder="Exemple:gare" required />
      </div>
    
      <div class="mb-1 col-md-6"> 
      <label class="form-label">ville</label>
      <div>
-     <select class="form-control " id="gare-ville" name="gare-ville" >
+     <select class="form-control  verify-form" id="gare-ville" name="gare-ville" >
        <option value="" selected>Please select</option>
        <?php
        
@@ -187,6 +187,33 @@ $resultVille = $ville->getVilles();
        </div>
      </div>
    </div>
+
+<!-- Modal delete with confirmation-->
+<div class="modal fade" id="deleteGareModal" tabindex="-1" role="dialog" aria-labelledby="deleteGareLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteGareLabel">Delete Gare</h5>
+        <button type="button" class="btn-close rounded" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+      </div>
+      <form action="../controller/deleteGare.php" method="post">
+            <div class="modal-body">
+            <div class="mb-3 col-12">
+       <input type="hidden" class="form-control " readonly id="gare-delete-id" value="" name="gare-delete-id">
+     </div>
+              <div class="container">
+            <img  class="w-100 h-50"src="../img/remove.jpg" alt="" srcset="">
+              </div>
+            
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" name="delete-gare" class="btn btn-danger" id="delete-gare-btn">Yes! Delete</button>
+            </div>
+            </form>
+    </div>
+  </div>
+</div>
    <!-- End of Page Wrapper -->
    </body>
    
@@ -240,16 +267,38 @@ $resultVille = $ville->getVilles();
        
       //data table
        $('#table-gares').DataTable();
-      //verification inputs
-          $('#nom-gare').keyup(function(){
-         let nom_gare = $(this).val();
-        
-      ((nom_gare !='')) ?  $(this).removeClass('is-invalid').addClass('is-valid') : $(this).removeClass('is-valid').addClass('is-invalid') ;
-       
-       });
+     
+    $('#gare-save-btn').prop('disabled', true);
+    $('#gare-update-btn').prop('disabled', true);
+    $('.verify-form').on('keyup keypress blur change', function(e) {
+
+      let nom_gare = $('#nom-gare').val();
+      let gare_ville = $('#gare-ville').val();
+    
+  
+    if((nom_gare!='')&&(gare_ville!='')){
+     $('#gare-save-btn').prop('disabled', false);
+     $('#gare-update-btn').prop('disabled', false);
+    }else{
+      $('#gare-save-btn').prop('disabled', true);
+      $('#gare-update-btn').prop('disabled', true);
+    }
+});
+//popup delete
+$('.delete-gare').click(function(e){
+  e.preventDefault();
+
+var id_gare =$(this).closest('tr').find('.id-gare').text();                        //The closest () is an inbuilt method in jQuery that returns the first ancestor of the selected element in the DOM tree
+ console.log(id_gare);
+ $('#deleteGareModal').modal('show');
+ $('#gare-delete-id').val(id_gare);
+// alert('hi');
+});
+
    
-   
-   
+$('#delete-gare-btn').click(function(e){
+ console.log(e.type);
+});
 //    });
    </script>
    </html>
