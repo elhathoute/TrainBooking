@@ -13,10 +13,10 @@ require_once '../classes/traines.class.php';
         }
       
     
-        public function insertTraine($id,$nom,$cap_train,$vitesse,$etat){
+        public function insertTraine(Traines $train){
             $sql = "INSERT INTO trains (id,nom,capacite_train,vitesse,etat) VALUES(?,?,?,?,?)";
             $stm = $this->connexion()->prepare($sql);
-             $stm->execute([$id,$nom,$cap_train,$vitesse,$etat]);
+             $stm->execute([$train->getId(),$train->getNom(),$train->getCapacite(),$train->getVitesse(),$train->getEtat()]);
             }
             public function  updateTraine(Traines $train){
                 $sql = "UPDATE  trains set nom=?,capacite_train=?,vitesse=?,etat=? where id=?";
