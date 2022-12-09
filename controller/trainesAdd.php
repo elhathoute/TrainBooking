@@ -1,6 +1,7 @@
 <?php
 
 require_once '../modal/trainesModal.php';
+require_once '../classes/traines.class.php';
 session_start();
 
 if (isset($_POST['save'])) saveTrain();
@@ -13,8 +14,9 @@ $vitesse=$_POST['train-vitesse'];
 $etat=1;
 
 $train = new TrainesModal();
-$train->insertTraine($id, $nom, $cap_train, $vitesse, $etat);
+$train->insertTraine(new Traines($id, $nom, $cap_train, $vitesse, $etat));
     $_SESSION['add-train'] = 'tarin ajouter avec succée !';
+    // var_dump(new Traines($id, $nom, $cap_train, $vitesse, $etat));
 header('location:../view/traines.php');
 }
 
