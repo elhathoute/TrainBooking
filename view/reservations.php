@@ -98,9 +98,13 @@ $resultReservation =$reservation->getReservation();
         <tr>
               <th scope="row"><?php echo $reservation['id']; ?></th>
               <td id='td-1'><?php echo $reservation['date_reserve']; ?></td>
-              <td id='td-2'><?php echo $reservation['user']; ?></td>
+              <td id='td-2'><?php echo $reservation['id_user']; ?></td>
               <td id='td-3'><?php echo $reservation['id_voyage']; ?></td>
-              <td id='td-4'><?php echo $reservation['etat']; ?></td>
+              <td id='td-4'><?php  if($reservation['etat']==1){
+             echo '<span class="badge badge-success">Confirmer</span>';
+              }else{
+                echo '<span class="badge badge-warning">Annuler</span>';
+              } ?></td>
               
               <td>
               <button data-bs-toggle="modal" data-bs-target="#addReservation" onclick="edit(<?php echo $reservation['id']; ?>)"  class="btn btn-warning"  id="<?php echo $reservation['id']; ?>"><i class="fa fa-edit"></i></button>
@@ -242,7 +246,11 @@ $resultReservation =$reservation->getReservation();
            $('#reservation-user').val($('#'+id).parent().parent().children('#td-2').html());
            $('#reservation-voyage').val($('#'+id).parent().parent().children('#td-3').html());
            $('#reservation-etat').val($('#'+id).parent().parent().children('#td-4').html());
-
+           $('#reservation-etat').click(function(e){
+            e.preventDefault();
+           console.log ($('#reservation-etat-2').removeAttr("disabled"));
+           });
+           
         
        }
     
