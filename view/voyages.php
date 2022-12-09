@@ -161,32 +161,32 @@ $resultGare2 = $gare2->getGares();
    
    <div class="row">
      <div class="mb-3 col-12">
-       <input type="hidden" class="form-control" readonly id="voyage-id" value="" name="id">
+       <input type="hidden" class="form-control  verify-form" readonly id="voyage-id" value="" name="id">
      </div>
    
      <div class="mb-1 col-md-6">
        <label class="form-label">date-dep</label>
-       <input type="date" class="form-control " id="voyage-date-dep" name="voyage-date-dep" autocomplete="off" placeholder="Exemple:gare" required />
+       <input type="date" class="form-control   verify-form" id="voyage-date-dep" name="voyage-date-dep" autocomplete="off" placeholder="Exemple:gare" required />
      </div>
      <div class="mb-1 col-md-6">
        <label class="form-label">date-arr</label>
-       <input type="date" class="form-control " id="voyage-date-arr" name="voyage-date-arr" autocomplete="off" placeholder="Exemple:gare" required />
+       <input type="date" class="form-control   verify-form" id="voyage-date-arr" name="voyage-date-arr" autocomplete="off" placeholder="Exemple:gare" required />
      </div>
    
      <div class="mb-1 col-md-6">
        <label class="form-label">cap-voyage</label>
-       <input type="number" min="0" class="form-control " id="cap-voyage" name="cap-voyage" autocomplete="off" placeholder="0" required />
+       <input type="number" min="0" class="form-control   verify-form" id="cap-voyage" name="cap-voyage" autocomplete="off" placeholder="0" required />
      </div>
 
      <div class="mb-1 col-md-6">
        <label class="form-label">prix-voyage</label>
-       <input type="number" min="0" class="form-control " id="prix-voyage" name="prix-voyage" autocomplete="off" placeholder="0 DH" required />
+       <input type="number" min="0" class="form-control   verify-form" id="prix-voyage" name="prix-voyage" autocomplete="off" placeholder="0 DH" required />
      </div>
    
      <div class="mb-1 col-md-12"> 
      <label class="form-label">train</label>
      <div>
-     <select class="form-control " id="voyage-train" name="voyage-train" >
+     <select class="form-control   verify-form" id="voyage-train" name="voyage-train" >
        <option value="" selected>Please select</option>
        <?php
        
@@ -201,7 +201,7 @@ $resultGare2 = $gare2->getGares();
    <div class="mb-1 col-md-6"> 
      <label class="form-label">gare-dep</label>
      <div>
-     <select class="form-control " id="voyage-gare-dep" name="voyage-gare-dep" >
+     <select class="form-control   verify-form" id="voyage-gare-dep" name="voyage-gare-dep" >
        <option value="" selected>Please select</option>
        <?php
        
@@ -217,7 +217,7 @@ $resultGare2 = $gare2->getGares();
    <div class="mb-1 col-md-6"> 
      <label class="form-label">gare-arr</label>
      <div>
-     <select class="form-control " id="voyage-gare-arr" name="voyage-gare-arr" >
+     <select class="form-control   verify-form" id="voyage-gare-arr" name="voyage-gare-arr" >
        <option value="" selected>Please select</option>
     
        <?php
@@ -293,10 +293,6 @@ $resultGare2 = $gare2->getGares();
            let gare_arr = $('#'+id).parent().parent().children('#td-5').html();
            $('#voyage-gare-arr').val(gare_arr).change();
          
-          // console.log($('#'+id).parent().parent().children('#td-1').html())
-          // let ville = $('#'+id).parent().parent().children('#td-2').children('#td-2-2').val();
-        
-          // $('#gare-ville').val(ville).change();
         
        }
     
@@ -307,21 +303,31 @@ $resultGare2 = $gare2->getGares();
          $("#form-voyage")[0].reset(); //Syntax to convert jQuery element to a JavaScript object.
    
     });
+    
+    $('#voyage-save-btn').prop('disabled', true);
+    $('#voyage-update-btn').prop('disabled', true);
+    $('.verify-form').on('keyup keypress blur change', function(e) {
+
+      let voyage_date_dep = $('#voyage-date-dep').val();
+      let voyage_date_arr= $('#voyage-date-arr').val();
+      let cap_voyage = $('#cap-voyage').val();
+      let  prix_voyage= $('#prix-voyage').val();
+      let  voyage_train= $('#voyage-train').val();
+      let voyage_gare_dep = $('#voyage-gare-dep').val();
+      let voyage_gare_arr = $('#voyage-gare-arr').val();
+    
+  
+    if((voyage_date_dep!='')&&(voyage_date_arr!='')&&(cap_voyage!='')&&(prix_voyage!='')&&(voyage_train!='')&&(voyage_gare_dep!='')&&(voyage_gare_arr!='')){
+     $('#voyage-save-btn').prop('disabled', false);
+     $('#voyage-update-btn').prop('disabled', false);
+    }else{
+      $('#voyage-save-btn').prop('disabled', true);
+      $('#voyage-update-btn').prop('disabled', true);
+    }
+});
    
-    //    // $(document).ready(function() {
-       
-    //   //data table
-    //    $('#table-gares').DataTable();
-    //   //verification inputs
-    //       $('#nom-gare').keyup(function(){
-    //      let nom_gare = $(this).val();
-        
-    //   ((nom_gare !='')) ?  $(this).removeClass('is-invalid').addClass('is-valid') : $(this).removeClass('is-valid').addClass('is-invalid') ;
-       
-    //    });
    
    
-   
-//    });
+
    </script>
    </html>
