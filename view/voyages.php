@@ -315,9 +315,12 @@ $resultGare2 = $gare2->getGares();
       let  voyage_train= $('#voyage-train').val();
       let voyage_gare_dep = $('#voyage-gare-dep').val();
       let voyage_gare_arr = $('#voyage-gare-arr').val();
-    
-  
-    if((voyage_date_dep!='')&&(voyage_date_arr!='')&&(cap_voyage!='')&&(prix_voyage!='')&&(voyage_train!='')&&(voyage_gare_dep!='')&&(voyage_gare_arr!='')){
+      //get date depart
+      var startDateVoyage = $('#voyage-date-dep').val();
+      //get date arrivé
+      var endDateVoyage = $('#voyage-date-arr').val();
+
+    if((voyage_date_dep!='')&&(voyage_date_arr!='')&&(cap_voyage!='')&&(prix_voyage!='')&&(voyage_train!='')&&(voyage_gare_dep!='')&&(voyage_gare_arr!='')&&(voyage_gare_dep!=voyage_gare_arr)&&((new Date(startDateVoyage).getTime())<=(new Date(endDateVoyage).getTime()))){
      $('#voyage-save-btn').prop('disabled', false);
      $('#voyage-update-btn').prop('disabled', false);
     }else{
