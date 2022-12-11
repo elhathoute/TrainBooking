@@ -1,5 +1,6 @@
 <?php
 require_once 'dbTrain.php';
+require_once '../classes/gares.class.php';
 
     class GaresModal extends DbTrain {
        
