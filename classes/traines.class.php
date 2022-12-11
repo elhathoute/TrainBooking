@@ -25,7 +25,7 @@
       $this->nom = $nom_train;
       }
       public function setCapacite($cap_train){
-        $this->$cap_train = $$cap_train;
+        $this->cap_train = $cap_train;
         }
       
           public function setVitesse($vitesse_train){
