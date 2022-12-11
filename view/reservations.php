@@ -156,20 +156,20 @@ $resultReservation =$reservation->getReservation();
    
      <div class="mb-1 col-md-12">
        <label class="form-label">reservation-date</label>
-       <input type="date" class="form-control " id="reservation-date" name="reservation-date" autocomplete="off" required />
+       <input type="date" class="form-control verify-form" id="reservation-date" name="reservation-date" autocomplete="off" required />
      </div>
    
    
      <div class="mb-1 col-md-12">
        <label class="form-label">reservation-user</label>
-       <input type="text" class="form-control " value="1" id="reservation-user" name="reservation-user" autocomplete="off" readonly required />
+       <input type="text" class="form-control verify-form" value="1" id="reservation-user" name="reservation-user" autocomplete="off" readonly required />
      </div>
 
    
      <div class="mb-1 col-md-12"> 
      <label class="form-label">reservation_voyage</label>
      <div>
-     <select class="form-control " id="reservation-voyage" name="reservation-voyage" >
+     <select class="form-control verify-form" id="reservation-voyage" name="reservation-voyage" >
        <option value="" selected>Please select</option>
        <?php
        
@@ -184,7 +184,7 @@ $resultReservation =$reservation->getReservation();
    <div class="mb-1 col-md-12"> 
      <label class="form-label">reservation_etat</label>
      <div>
-     <select class="form-control " id="reservation-etat" name="reservation-etat" >
+     <select class="form-control verify-form" id="reservation-etat" name="reservation-etat" >
        <option value="" selected>Please select</option>
        <option id="" value="1" >confirmer</option>
        <option id="reservation-etat-2" value="2"  disabled="true">annuler</option>
@@ -246,9 +246,9 @@ $resultReservation =$reservation->getReservation();
            $('#reservation-user').val($('#'+id).parent().parent().children('#td-2').html());
            $('#reservation-voyage').val($('#'+id).parent().parent().children('#td-3').html());
            $('#reservation-etat').val($('#'+id).parent().parent().children('#td-4').html());
-           $('#reservation-etat').click(function(e){
+           $('#reservation-etat').change(function(e){
             e.preventDefault();
-           console.log ($('#reservation-etat-2').removeAttr("disabled"));
+           $('#reservation-etat-2').removeAttr("disabled");
            });
            
         
@@ -267,6 +267,25 @@ $resultReservation =$reservation->getReservation();
        $('#table-reservations').DataTable();
   
    
+    $('#reservation-save-btn').prop('disabled', true);
+    $('#reservation-update-btn').prop('disabled', true);
+    $('.verify-form').on('keyup keypress blur change', function(e) {
+
+      let reservation_date = $('#reservation-date').val();
+      let reservation_user= $('#reservation-user').val();
+      let reservation_voyage = $('#reservation-voyage').val();
+      let reservation_etat= $('#reservation-etat').val();
+      let today = new Date().getTime();
+      console.log(today);
+      console.log(new Date(reservation_date).getTime());
+    if((reservation_date!='')&&(reservation_user!='')&&(reservation_voyage!='')&&(reservation_etat!='')&&((new Date(reservation_date).getTime())>=(today))){
+     $('#reservation-save-btn').prop('disabled', false);
+     $('#reservation-update-btn').prop('disabled', false);
+    }else{
+      $('#reservation-save-btn').prop('disabled', true);
+      $('#reservation-update-btn').prop('disabled', true);
+    }
+});
    
 //    });
    </script>
