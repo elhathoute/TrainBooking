@@ -14,7 +14,7 @@ class Reserve {
         $this->date_reserve = $date_reserve;
         $this->id_user      = $id_user;
         $this->id_voyage    = $id_voyage;
-        $this->etat   = $etat;
+        $this->etat         = $etat;
     }
 
     //setters

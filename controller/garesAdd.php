@@ -12,7 +12,7 @@ $ville=$_POST['gare-ville'];
 
 
 $gare= new GaresModal();
-$gare->insertGare($id,$nom,$ville);
+$gare->insertGare(new Gares($id,$nom,$ville));
     $_SESSION['add-gare'] = 'gare ajouter avec succée !';
 header('location:../view/gares.php');
 }

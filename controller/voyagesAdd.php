@@ -2,6 +2,7 @@
 
 
 require_once '../modal/voyagesModal.php';
+require_once '../classes/voyages.class.php';
 session_start();
 
 if (isset($_POST['save'])) saveVoyage();
@@ -19,7 +20,7 @@ function saveVoyage(){
 
     
 $voyage = new VoyagesModal();
-$voyage->insertVoyage($id,$date_dep,$date_arr,$cap_voyage,$prix_voyage,$train,$gare_dep,$gare_arr);
+$voyage->insertVoyage(new Voyages($id,$date_dep,$date_arr,$cap_voyage,$prix_voyage,$train,$gare_dep,$gare_arr));
     $_SESSION['add-voyage'] = 'voyage ajouter avec succée !';
 header('location:../view/voyages.php');
 }
