@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: poppins, sans-serif;
+    box-sizing: border-box;
+}
+
+#btnReserv:hover {
+    background-color: white;
+    border: 3px solid rgb(228, 58, 25);
+    color: rgb(228, 58, 25);
+    font-weight: bolder;
+}
+
+#line {
+    border-top: 3px solid rgb(37, 37, 37);
+}
+
+.lien:hover {
+    color: rgb(228, 58, 25);
+    font-weight: bold;
+    font-size: medium;
+}
+
+#bx1:hover {
+    color: #386bbe;
+    transform: scale(1.5);
+}
+
+#bx2:hover {
+    color: rgb(29, 155, 240);
+    transform: scale(1.5);
+}
+
+#bx3:hover {
+    color: #C13584;
+    transform: scale(1.5);
+}
+
+#bx4:hover {
+    color: red;
+    transform: scale(1.5);
+}
+
+#bx5:hover {
+    color: rgb(16, 199, 16);
+    transform: scale(1.5);
+}

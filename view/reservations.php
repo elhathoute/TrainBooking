@@ -156,7 +156,7 @@ $resultReservation =$reservation->getReservation();
    
      <div class="mb-1 col-md-12">
        <label class="form-label">reservation-date</label>
-       <input type="date" class="form-control verify-form" id="reservation-date" name="reservation-date" autocomplete="off" required />
+       <input type="datetime-local" class="form-control verify-form" id="reservation-date" name="reservation-date" autocomplete="off" required />
      </div>
    
    
