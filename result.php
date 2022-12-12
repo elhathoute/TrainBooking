@@ -10,20 +10,27 @@ session_start();
 
 // function searchVoyage()
 // {
+    
+  if((!empty($_GET['gare-depart']))&&(!empty($_GET['gare-arr']))){
     $gare_dept = $_GET['gare-depart'];
     $gare_arr = $_GET['gare-arr'];
 
     $searchVoyage = new VoyagesModal();
-    $resultSearchVoyage =$searchVoyage->searchVoyage($gare_dept,$gare_arr);
+    $resultSearchVoyage =$searchVoyage->searchvoyage($gare_dept,$gare_arr);
+  }
+  else{
 
+    $searchVoyage = new VoyagesModal();
+    $resultSearchVoyage =$searchVoyage->searchvoyage();
    
+  }
+ 
+
 // }
 
 
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +46,7 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="css/result.css" />
+    <link rel="stylesheet" href="./result.css" />
 </head>
 
 <body style="background-color: rgb(242, 244, 247)">
@@ -79,40 +86,41 @@ session_start();
         <div class="container mt-5 mb-2 ">
             <div class="row ">
                 <h4 class="text-center ">GARE DE DEPART <span class="mx-3 fw-bold fs-3 mb-1 " style="color: rgb(228, 58, 25) ">></span>GARE DE DESTINATION</h4>
-                <!-- <p class="text-center ">Deuxième Classe</p> -->
+                <p class="text-center ">Deuxième Classe</p>
                 <div class="text-center mb-5 ">
-                    <a href="index.php">
                     <button type="button " class="btn btn-outline-dark text-center " style="width: 300px ">
               <span class="material-symbols-outlined text-center fs-5 me-2 ">search </span>
               <span class="text-center ">Mon nouveau trajet</span>
             </button>
-                    </a>
-                   
                 </div>
             </div>
         </div>
         <div class="container col-sm-11 col-md-8 col-lg-7 ">
             <div>
-                <h4 class="text-start text-dark my-4 ">date:</h4>
+                <h4 class="text-center text-white bg-info rounded-4 my-4 py-3">Les Voyages Disponibles</h4>
             </div>
             <div class="row ">
-      <?php foreach($resultSearchVoyage as $search) { ?>
-                    <div class="card rounded-4 mb-3">
+            <?php
+
+                foreach($resultSearchVoyage as $vo){
+                
+                    echo '
+                    <div class="card rounded-4 mb-1">
                     <div class="card-header bg-white d-flex justify-content-between mt-2 mx-3 ">
                         <div class="text-center ">
                             <p class="fw-semibold ">Départ</p>
-                            <p class="fw-normal "><?php echo $search['id_gare_dep'];?></p>
-                            <p class="fst-italic ">jkehrekzrh</p>
+                            <p class="fw-normal ">'.$vo['date_dep'].'</p>
+                            <p class="fst-italic ">'.$vo['id_gare_dep'].'</p>
                         </div>
                         <div class="text-center mt-3 ">
-                            <p class="fw-semibold "></p>
+                            <p class="fw-semibold ">Durée '.$searchVoyage->secsToStr($vo['date_dep'],$vo['date_arr']).'</p>
                             <hr style="color: rgb(228, 58, 25) " />
                             <p class="fw-semibold ">Direct</p>
                         </div>
                         <div class="text-center ">
                             <p class="fw-semibold ">Arrivée</p>
-                            <p class="fw-normal "><?php echo $search['id_gare_arr'];?></p>
-                            <p class="fst-italic ">jkhekzjhrezjk</p>
+                            <p>'.$vo['date_arr'].'</p>
+                            <p class="fst-italic ">'.$vo['id_gare_arr'].'</p>
                         </div>
                     </div>
 
@@ -122,20 +130,40 @@ session_start();
                                 <i class="bx bx-train fs-1 " style="color: rgb(228, 58, 25) "></i>
                             </div>
                             <div class="px-3 text-center ">
-                                <p class="mt-2 text-center pt-3 fs-5 "><?php echo $search['id_train'];?></p>
-                                <p class="text-center fw-light ">Gare Départ</p>
+                                <p class=" text-center pt-3 fs-5 ">'.$vo['train-nom'].' </p>
+                              
                             </div>
                         </div>
                         <div class="px-4 text-center ">
-                            <p class="px-2 fw-semibold "><?php echo $search['cap_voyage'];?> passager</p>
+                          
                             <p class="px-2 fw-semibold ">A partir de</p>
-                            <p class="px-2 fw-semibold "><?php echo $search['cap_voyage']*$search['prix_voyage'];?> MAD</p>
+                            <p class="px-2 fw-semibold">'.$vo['prix_voyage'].' MAD</p>
                             <button id="btnReserv" type="submit" class="btn btn-dark px-3">Réserver</button>
                         </div>
                     </div>
                 </div>
-      <?php } ?>
-         
+                    ';
+                }
+            
+
+                ?>
+               <?php if(count($resultSearchVoyage)==0){?>
+                <div class="card rounded-4 ">
+                    <div class="card-header bg-white d-flex justify-content-between mt-2 mx-3 ">
+                     
+                    </div>
+
+                    <div class="card-body d-flex justify-content-between align-items-center ">
+                        <div class="d-flex align-items-center ">
+                        <img class="w-50" src="img/delete.jpg" alt="" srcset="">
+                       <span class="alert alert-danger shadow"> Voyage Not Fount!</span>
+                        </div>
+                        
+                        
+                      
+                    </div>
+                </div>
+              <?php }?>
             </div>
         </div>
     </section>

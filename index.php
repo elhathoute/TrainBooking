@@ -14,12 +14,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/headerstyle.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/result.css" />
     <title>Document</title>
 </head>
 <body style="background-color:#152242;">
 <?php
 
-include_once('navbar.php');
+// include_once('navbar.php');
 
 ?>
 <!-- hero section   -->
@@ -42,31 +48,19 @@ include_once('navbar.php');
 </div> -->
 
 <!-- search section -->
-<form action="result.php" method="get" class="w-100 row p-5" style="background-color: #293659;">
-    <div class="mb-3 p-2 col-6 d-flex flex-column align-items-center">
-  <label for="exampleFormControlInput1" class="form-label text-white">Gare De Départ</label>
-<input type="text" name="gare-depart" class="form-control rounded-pill" id="gared">
+<form action="result.php" method="GET" class="w-100 row p-5" style="background-color: #293659;">
+    <div class="mb-3 p-2 col-12 d-flex flex-column align-items-center">
+  <!-- <label for="exampleFormControlInput1" class="form-label text-white">Gare De Départ</label> -->
+<input placeholder="gare-depart" name="gare-depart" type="text" class="form-control rounded-pill" id="gared">
 </div>
-<div class="mb-3 p-2 col-6 d-flex flex-column align-items-center">
-  <label for="" class="form-label text-white">Date De Départ</label>
-<input type="datetime-local"  class="form-control rounded-pill" id="tempsd">
-</div>
-<div class="col-6 d-flex flex-column align-items-center">
+<div class="col-12 d-flex flex-column align-items-center">
 <button class="btn shadow-none bg-transparent" type="button" onclick="switchgare()">
-  <img src="asset/arrow.svg" style="height: 50px;width:auto">
+  <img src="img/arrow.svg" style="height: 50px;width:auto">
 </button>
 </div>
-<div class="col-6 d-flex flex-column align-items-center">
-<button class="btn shadow-none bg-transparent" type="button" onclick="switchtime()">
-  <img src="asset/arrow.svg" style="height: 50px;width:auto">
-</button></div>
-<div class="mb-3 p-2 col-6 d-flex flex-column align-items-center">
-  <label for="" class="form-label text-white">Gare d'arrivé</label>
-  <input type="text" name="gare-arr" class="form-control rounded-pill" id="garea">
-</div>
-<div class="mb-3 p-2 col-6 d-flex flex-column align-items-center">
-  <label for="" class="form-label text-white ">Temps d'arrivé</label>
-  <input type="datetime-local" class="form-control rounded-pill" id="tempsa">
+<div class="mb-3 p-2 col-12 d-flex flex-column align-items-center">
+  <!-- <label for="" class="form-label text-white">gare d'arrivé</label> -->
+  <input type="text" placeholder="gare-arrivé" name="gare-arr" class="form-control rounded-pill" id="garea">
 </div>
 <div class="my-3  d-flex flex-column align-items-center">
 <button type="submit" name="search" class="w-100 rounded-pill btn btn-primary">Search</button>
