@@ -25,5 +25,12 @@ require_once 'dbTrain.php';
                 $stm = $this->connexion()->prepare($sql);
                  $stm->execute([$voyage->getdatedepVoyage(),$voyage->getdatearrVoyage(),$voyage->getcapaciteVoyage(),$voyage->getPrixVoyage(),$voyage->getTrainVoyage(),$voyage->getGaredepVoyage(),$voyage->getGarearrVoyage(),$voyage->getidVoyage()]);
                 }
+
+                public function searchVoyage($gare_depart,$gare_arr){
+                    $sql = "SELECT * FROM voyages where id_gare_dep=? and id_gare_arr=?";
+                    $stm = $this->connexion()->prepare($sql);
+                    $stm->execute([$gare_depart,$gare_arr]);
+                    return $stm->fetchAll();
+                }
                 
 }
