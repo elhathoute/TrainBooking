@@ -101,9 +101,9 @@ $resultReservation =$reservation->getReservation();
               <td id='td-2'><?php echo $reservation['id_user']; ?></td>
               <td id='td-3'><?php echo $reservation['id_voyage']; ?></td>
               <td id='td-4'><?php  if($reservation['etat']==1){
-             echo '<span class="badge badge-success">Confirmer</span>';
+             echo '<span class="badge badge-success td-4-1">Confirmer</span>';
               }else{
-                echo '<span class="badge badge-warning">Annuler</span>';
+                echo '<span class="badge badge-warning td-4-1">Annuler</span>';
               } ?></td>
               
               <td>
@@ -187,7 +187,7 @@ $resultReservation =$reservation->getReservation();
      <select class="form-control verify-form" id="reservation-etat" name="reservation-etat" >
        <option value="" selected>Please select</option>
        <option id="" value="1" >confirmer</option>
-       <option id="reservation-etat-2" value="2"  disabled="true">annuler</option>
+       <option id="reservation-etat-2" value="2"  >annuler</option>
 
      </select>
      </div>
@@ -245,12 +245,9 @@ $resultReservation =$reservation->getReservation();
            $('#reservation-date').val($('#'+id).parent().parent().children('#td-1').html());
            $('#reservation-user').val($('#'+id).parent().parent().children('#td-2').html());
            $('#reservation-voyage').val($('#'+id).parent().parent().children('#td-3').html());
-           $('#reservation-etat').val($('#'+id).parent().parent().children('#td-4').html());
-           $('#reservation-etat').change(function(e){
-            e.preventDefault();
-           $('#reservation-etat-2').removeAttr("disabled");
-           });
-           
+           let reservation_etat =$('#'+id).parent().parent().children('#td-4').children('.td-4-1').html();
+           (reservation_etat=='Confirmer')?($('#reservation-etat').val(1).change()):($('#reservation-etat').val(2).change());
+          
         
        }
     
@@ -276,8 +273,8 @@ $resultReservation =$reservation->getReservation();
       let reservation_voyage = $('#reservation-voyage').val();
       let reservation_etat= $('#reservation-etat').val();
       let today = new Date().getTime();
-      console.log(today);
-      console.log(new Date(reservation_date).getTime());
+      // console.log(today);
+      // console.log(new Date(reservation_date).getTime());
     if((reservation_date!='')&&(reservation_user!='')&&(reservation_voyage!='')&&(reservation_etat!='')&&((new Date(reservation_date).getTime())>=(today))){
      $('#reservation-save-btn').prop('disabled', false);
      $('#reservation-update-btn').prop('disabled', false);
