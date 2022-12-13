@@ -142,7 +142,7 @@ $resultVille = $ville->getVilles();
      <div class="modal-dialog">
        <div class="modal-content">
          <div class="modal-header">
-           <h5 class="modal-title" id="addGareLabel">Add train</h5>
+           <h5 class="modal-title" id="addGareLabel">Add Gare</h5>
            <button type="button" class="btn-close rounded" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
          </div>
        <form method="POST" action="../controller/garesAdd.php" id="form-gare">

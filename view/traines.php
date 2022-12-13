@@ -95,6 +95,9 @@ $resultTrain = $train->getTraines();
         <?php
        
           foreach ($resultTrain as $train) {
+          $idTrain = $train['id'];
+          $TrainVoyage = new TrainesModal();
+          $count = count($TrainVoyage->getTraineInVoyage($idTrain));
           ?>
 
             <tr>
@@ -107,10 +110,11 @@ $resultTrain = $train->getTraines();
               <td>
 
                 <button data-bs-toggle="modal" data-bs-target="#addTrain" onclick="edit(<?php echo $train['id']; ?>)"  class="btn btn-warning"  id="<?php echo $train['id']; ?>"><i class="fa fa-edit"></i></button>
-                
+                <?php if($count==0){?>
                 <a href="../controller/deleteTrain.php?id=<?php echo $train['id']; ?>" onclick="return confirm('Are you sure you want to delete this train?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-
-
+                  <?php } else {?>
+                    <a href="voyages.php" onclick="return alert('supprimer voyage lier a cette train?')" class="btn btn-secondary"><i class="fa fa-car"></i></a>
+                    <?php }  ?>
               </td>
 
 

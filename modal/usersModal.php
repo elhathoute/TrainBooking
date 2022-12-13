@@ -7,7 +7,8 @@ include 'dbTrain.php';
         public function getUsers(){
         $sql = "SELECT * FROM users ";
         $stm = $this->connexion()->query($sql);
-        return $stm;
+        $result = $stm->fetchAll();
+        return $result;
         }
       
     

@@ -8,7 +8,8 @@ require_once 'dbTrain.php';
         public function getGares(){
         $sql = "SELECT gares.*,villes.nom as 'ville',villes.id as 'id-ville' FROM gares left join villes on gares.id_ville=villes.id ";
         $stm = $this->connexion()->query($sql);
-        return $stm;
+        $result = $stm->fetchAll();
+        return $result;
         }
       
     
