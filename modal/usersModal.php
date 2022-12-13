@@ -33,6 +33,11 @@ include 'dbTrain.php';
          $stm->execute([$role,$id]);
     }
   
+    public function getCommentaires(){
+        $sql = "SELECT commentaires.*,users.nom as'nom-user' from commentaires left join users on commentaires.id_user=users.id ";
+        $stm = $this->connexion()->query($sql);
+        return $stm;
+    }
 
 
 }
