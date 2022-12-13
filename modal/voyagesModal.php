@@ -34,7 +34,11 @@ require_once 'dbTrain.php';
                 // }
                 public function searchvoyage($gd = 'any(SELECT `id_gare_dep` FROM `voyages`)',$ga = 'any(SELECT `id_gare_arr` FROM `voyages`)'){
                     $now = date('20y-m-d h:m:s');
-                    $sql = "SELECT voyages.*,trains.nom as 'train-nom' FROM voyages left join trains on voyages.id_train=trains.id WHERE id_gare_dep = $gd and id_gare_arr = $ga and date_dep >= '$now' and cap_voyage<>0 ";
+                    $sql = "SELECT v.*,t.nom as 'train-nom',g1.nom as'gare-nom1',g2.nom as'gare-nom2' FROM voyages v
+                    left join trains t on (v.id_train=t.id)
+                    left join gares g1 on (v.id_gare_dep=g1.id)
+                    left join gares g2 on (v.id_gare_arr=g2.id)
+                     WHERE id_gare_dep = $gd and id_gare_arr = $ga and date_dep >= '$now' and cap_voyage<>0 ";
                     $stm =$this->connexion()->query($sql);
                     $rows = $stm->fetchAll();
                     return $rows; 

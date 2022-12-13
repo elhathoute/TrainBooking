@@ -180,7 +180,18 @@ $resultReservation =$reservation->getReservation();
      </select>
      </div>
    </div>
-   
+   <div class="mb-1 col-md-12"> 
+  <label class="form-label">cap-reservation</label>
+  <div>
+  <select class="form-control " id="reservation-capacite" name="reservation-capacite" >
+    <option id="" value="1" selected >1 personne</option>
+    <option id="" value="2" >2 personne</option>
+    <option id="" value="3" >3 personne</option>
+    <option id="" value="4" >4 personne</option>
+    <option id="" value="5" >5 personne</option>
+  </select>
+  </div>
+</div>
    <div class="mb-1 col-md-12"> 
      <label class="form-label">reservation_etat</label>
      <div>

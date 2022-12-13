@@ -1,11 +1,9 @@
 <?php
 include_once '../modal/trainesModal.php';
-//  $conn = new mysqli('localhost', 'root', '', 'management_traines');
 if ((! empty($_POST["gared"]))) {
-    //  $sql = $conn->prepare("SELECT * FROM gares WHERE nom like ? ORDER BY nom");
+  
      $gared = "%{$_POST['gared']}%";
-    //  $sql->execute(array($gare));
-    //  $result = $sql->get_result();
+ 
     $train = new TrainesModal();
     $result=$train->searchTrain($gared);
     $count=count($result);
