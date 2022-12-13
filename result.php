@@ -17,12 +17,15 @@ session_start();
     $gare2 = new GaresModal();
     $gareId2 = $gare2->searchby('gares', 'nom', $gare_arr);
   
-    if($gareId1!=NULL || $gareId2 != null){
+    if(($gareId1!=NULL && $gareId2 != NULL)){
         $searchVoyage = new VoyagesModal();
-    $resultSearchVoyage =$searchVoyage->searchvoyage();
-    }else{
-    $searchVoyage = new VoyagesModal();
-    $resultSearchVoyage =$searchVoyage->searchvoyage($gareId1['id'],$gareId2['id']);
+        $resultSearchVoyage =$searchVoyage->searchvoyage($gareId1['id'],$gareId2['id']);
+       
+    }
+    else if(($gareId1==NULL || $gareId2 == NULL)){
+        $searchVoyage = new VoyagesModal();
+        $resultSearchVoyage =$searchVoyage->searchvoyage();
+   
    }
        
         
@@ -53,6 +56,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="./result.css" />
 </head>
@@ -96,10 +100,12 @@ session_start();
                 <h4 class="text-center ">GARE DE DEPART <span class="mx-3 fw-bold fs-3 mb-1 " style="color: rgb(228, 58, 25) ">></span>GARE DE DESTINATION</h4>
                 <p class="text-center ">Deuxième Classe</p>
                 <div class="text-center mb-5 ">
-                    <button type="button " class="btn btn-outline-dark text-center " style="width: 300px ">
+                 <a href="index.php">
+                 <button type="button " class="btn btn-outline-dark text-center " style="width: 300px ">
               <span class="material-symbols-outlined text-center fs-5 me-2 ">search </span>
               <span class="text-center ">Mon nouveau trajet</span>
             </button>
+                 </a>
                 </div>
             </div>
         </div>
@@ -117,18 +123,19 @@ session_start();
                     <div class="card-header bg-white d-flex justify-content-between mt-2 mx-3 ">
                         <div class="text-center ">
                             <p class="fw-semibold ">Départ</p>
-                            <p class="fw-normal ">'.$vo['date_dep'].'</p>
-                            <p class="fst-italic ">'.$vo['id_gare_dep'].'</p>
+                           <p > <span class="badge rounded-pill bg-secondary"><i class="fa fa-clock"> </i>  '.$vo['date_dep'].'</span></p>
+                           
+                            <span class="badge rounded-pill bg-primary shadow"><i class="fa fa-train"> </i>  '.$vo['gare-nom1'].'</span>
                         </div>
                         <div class="text-center mt-3 ">
-                            <p class="fw-semibold ">Durée '.$searchVoyage->secsToStr($vo['date_dep'],$vo['date_arr']).'</p>
+                            <p class="fw-semibold "><span class="badge rounded-1 bg-warning">  Durée '.$searchVoyage->secsToStr($vo['date_dep'],$vo['date_arr']).'</span></p>
                             <hr style="color: rgb(228, 58, 25) " />
                             <p class="fw-semibold ">Direct</p>
                         </div>
                         <div class="text-center ">
                             <p class="fw-semibold ">Arrivée</p>
-                            <p>'.$vo['date_arr'].'</p>
-                            <p class="fst-italic ">'.$vo['id_gare_arr'].'</p>
+                            <p> <span class="badge rounded-pill bg-secondary h-3"><i class="fa fa-clock"> </i>  '.$vo['date_arr'].'</span></p>
+                            <span class="badge rounded-pill bg-success shadow"><i class="fa fa-train"> </i>  '.$vo['gare-nom2'].'</span>
                         </div>
                     </div>
 
@@ -141,12 +148,15 @@ session_start();
                                 <p class=" text-center pt-3 fs-5 ">'.$vo['train-nom'].' </p>
                               
                             </div>
+                            <span class="badge bg-danger"><i class="fa fa-users"></i> '.$vo['cap_voyage'].' place</span>
                         </div>
                         <div class="px-4 text-center ">
                           
                             <p class="px-2 fw-semibold ">A partir de</p>
                             <p class="px-2 fw-semibold">'.$vo['prix_voyage'].' MAD</p>
-                            <button id="btnReserv" type="submit" class="btn btn-dark px-3">Réserver</button>
+         <button id="btnReserv" name="save" type="submit" class="btn btn-dark px-3"  
+         onclick="showReservation('.$vo['id'].','.$vo['prix_voyage'].','.$vo['cap_voyage'].');"
+         data-bs-toggle="modal" data-bs-target="#addReservation" id="add-reservation">Réserver</button>
                         </div>
                     </div>
                 </div>
@@ -175,6 +185,86 @@ session_start();
             </div>
         </div>
     </section>
+
+     <!-- Modal -->
+   <div class="modal fade" id="addReservation" tabindex="-1" role="dialog" aria-labelledby="addGare" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="staticBackdropLabel">Add reservation</h5>
+           <button type="button" class="btn-close rounded" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+       <form method="POST" action="controller/Reserver-voyage.php" id="form-reservation">
+       <div class="modal-body">
+   
+   <div class="row">
+     <div class="mb-3 col-12">
+       <input type="hidden" class="form-control" readonly id="reservation-id" value="" name="id">
+     </div>
+   
+     <div class="mb-1 col-md-12">
+       <input type="datetime-local" value="<?php
+       $currentDate = new DateTime();
+       echo $currentDate->format('Y-m-d H:i:s');
+       ?>" class="form-control verify-form" readonly id="reservation-date" hidden name="reservation-date" autocomplete="off" required />
+     </div>
+   
+   
+     <div class="mb-1 col-md-12">
+       <input type="text" class="form-control verify-form" value="1" id="reservation-user" hidden name="reservation-user" autocomplete="off" readonly required />
+     </div>
+
+   
+     <div class="mb-1 col-md-12"> 
+       <input type="text" class="form-control "  id="reservation-voyage" name="reservation-voyage" hidden autocomplete="off" readonly required />
+ 
+   </div>
+
+   <div class="mb-1 col-md-12"> 
+       <input type="text" class="form-control "  id="reservation-prix" name="reservation-prix" hidden autocomplete="off" readonly required />
+ 
+   </div>
+   
+   <div class="mb-1 col-md-12"> 
+  <label class="form-label">cap-reservation</label>
+  <div>
+  <select class="form-control " id="reservation-capacite" name="reservation-capacite" >
+    <option id="" value="1" selected >1 personne</option>
+    <option id="" value="2" >2 personne</option>
+    <option id="" value="3" >3 personne</option>
+    <option id="" value="4" >4 personne</option>
+    <option id="" value="5" >5 personne</option>
+  </select>
+  </div>
+</div>
+<div class="mb-1 col-md-12">
+       <label class="form-label">reservation-total</label>
+       <input type="text" class="form-control" min="0" id="reservation-total" name="reservation-total" autocomplete="off" readonly required />
+     </div>
+   <div class="mb-1 col-md-12"> 
+     <label class="form-label">reservation_etat</label>
+     <div>
+     <select class="form-control verify-form" id="reservation-etat" name="reservation-etat" >
+       <option value="" disabled >Please select</option>
+       <option id="" value="1" selected>confirmer</option>
+       <option id="reservation-etat-2" value="2" disabled >annuler</option>
+
+     </select>
+     </div>
+   </div>
+
+
+   </div>
+   </div>
+   <div class="modal-footer">
+   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+   <button type="submit" name="save" class="btn btn-primary reservation-action-btn" id="reservation-save-btn">Save</button>
+   </div>
+    </form>
+       </div>
+     </div>
+   </div>
+
     <footer style="background-color: rgb(188, 206, 248);">
         <div class="container mt-5 pt-5">
             <div class="d-flex flex-nowrap justify-content-center">
@@ -212,5 +302,24 @@ session_start();
 </body>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js " integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4 " crossorigin="anonymous "></script>
-
+<script>
+    function showReservation(id_voyage,prix_voyage,cap_voyage){
+        document.getElementById('reservation-voyage').value=id_voyage;
+        document.getElementById('reservation-prix').value=prix_voyage;
+        document.getElementById('reservation-total').value=prix_voyage*1+' DH';
+        document.getElementById('reservation-capacite').addEventListener('change',function(){
+            let personnes =document.getElementById('reservation-capacite').value;
+            if(personnes<=cap_voyage){
+                document.getElementById('reservation-save-btn').disabled=false;
+                 
+            }else{
+              
+            document.getElementById('reservation-save-btn').disabled=true;
+            }
+            document.getElementById('reservation-total').value=prix_voyage*personnes+' DH';
+        });
+         
+      
+    }
+</script>
 </html>
