@@ -73,6 +73,13 @@
 
          <!-- Divider -->
          <hr class="sidebar-divider">
+         <li class="nav-item">
+            <a class="nav-link" href="traines.php">
+                <i class="fa fa-sign-out"></i>
+                <span>Logout</span></a>
+        </li>
+         <!-- Divider -->
+         <hr class="sidebar-divider">
     </ul>
 
     

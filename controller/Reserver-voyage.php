@@ -21,6 +21,7 @@ $cap_reservation=$_POST['reservation-capacite'];
 $reservation= new ResevationModal();
 $reservation->insertReservation(new Reserve($id,$date_reservation, $user_reservation, $voyage_reservation, $etat_reservation,$cap_reservation));
 $reservation->updateVoyages($idVoyage,$cap_reservation);
+// setcookie('reservation', 1, time() + (86400 * 30), "/");
 header('location:../result.php');
 }
 

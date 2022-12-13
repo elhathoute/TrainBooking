@@ -6,9 +6,10 @@ require_once 'dbTrain.php';
      
         public function getReservation(){
         $sql = "SELECT reservations.*,users.nom as 'user' FROM reservations 
-    left join users on reservations.id_user=users.id ";
+        left join users on reservations.id_user=users.id ";
         $stm = $this->connexion()->query($sql);
-        return $stm;
+        $result = $stm->fetchAll();
+        return $result;
         }
       
     

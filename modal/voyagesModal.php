@@ -5,9 +5,15 @@ require_once 'dbTrain.php';
        
      
         public function getVoyages(){
-        $sql = "SELECT * FROM voyages ";
+        $sql = "SELECT v.*,t.nom as 'nom-train',g1.nom as 'gare-depart',g2.nom as 'gare-arriver' FROM voyages v 
+        left join trains t on v.id_train=t.id
+        left join gares g1 on v.id_gare_dep=g1.id
+        left join gares g2 on v.id_gare_arr=g2.id
+       
+        ";
         $stm = $this->connexion()->query($sql);
-        return $stm;
+        $result=$stm->fetchAll();
+        return $result;
         }
         public function insertVoyage(Voyages $voyage){
             $sql = "INSERT INTO `voyages`(`id`, `date_dep`, `date_arr`, `cap_voyage`, `prix_voyage`, `id_train`, `id_gare_dep`, `id_gare_arr`) VALUES(?,?,?,?,?,?,?,?)";
@@ -26,12 +32,6 @@ require_once 'dbTrain.php';
                  $stm->execute([$voyage->getdatedepVoyage(),$voyage->getdatearrVoyage(),$voyage->getcapaciteVoyage(),$voyage->getPrixVoyage(),$voyage->getTrainVoyage(),$voyage->getGaredepVoyage(),$voyage->getGarearrVoyage(),$voyage->getidVoyage()]);
                 }
 
-                // public function searchVoyage($gare_depart,$gare_arr){
-                //     $sql = "SELECT * FROM voyages where id_gare_dep=? and id_gare_arr=?";
-                //     $stm = $this->connexion()->prepare($sql);
-                //     $stm->execute([$gare_depart,$gare_arr]);
-                //     return $stm->fetchAll();
-                // }
                 public function searchvoyage($gd = 'any(SELECT `id_gare_dep` FROM `voyages`)',$ga = 'any(SELECT `id_gare_arr` FROM `voyages`)'){
                     $now = date('20y-m-d h:m:s');
                     $sql = "SELECT v.*,t.nom as 'train-nom',g1.nom as'gare-nom1',g2.nom as'gare-nom2' FROM voyages v

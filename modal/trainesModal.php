@@ -9,9 +9,19 @@ require_once '../classes/traines.class.php';
         public function getTraines(){
         $sql = "SELECT * FROM trains ";
         $stm = $this->connexion()->query($sql);
-        return $stm;
+        $result = $stm->fetchAll();
+        return $result;
         }
-      
+
+        public function getTraineInVoyage($id_train){
+            $sql = "SELECT * FROM voyages where id_train=? ";
+            $stm = $this->connexion()->prepare($sql);
+            $stm->execute([$id_train]);
+           $result = $stm->fetchAll();
+        return $result;
+          
+            }
+        
     
         public function insertTraine(Traines $train){
             $sql = "INSERT INTO trains (id,nom,capacite_train,vitesse,etat) VALUES(?,?,?,?,?)";
