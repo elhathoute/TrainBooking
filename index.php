@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/headerstyle.css">
@@ -51,8 +52,12 @@
 <form action="result.php" method="GET" class="w-100 row p-5" style="background-color: #293659;">
     <div class="mb-3 p-2 col-12 d-flex flex-column align-items-center">
   <!-- <label for="exampleFormControlInput1" class="form-label text-white">Gare De Départ</label> -->
-<input placeholder="gare-depart" name="gare-depart" type="text" class="form-control rounded-pill" id="gared">
+<input placeholder="gare-depart" name="gare-depart" type="text" class="form-control rounded-pill gared-garea" id="gared" autocomplete="off">
 </div>
+<!-- search -->
+<div   id="suggesstion-gare"></div>
+<div  id="suggesstion-gare-error"></div>
+<!--  -->
 <div class="col-12 d-flex flex-column align-items-center">
 <button class="btn shadow-none bg-transparent" type="button" onclick="switchgare()">
   <img src="img/arrow.svg" style="height: 50px;width:auto">
@@ -60,10 +65,13 @@
 </div>
 <div class="mb-3 p-2 col-12 d-flex flex-column align-items-center">
   <!-- <label for="" class="form-label text-white">gare d'arrivé</label> -->
-  <input type="text" placeholder="gare-arrivé" name="gare-arr" class="form-control rounded-pill" id="garea">
+  <input type="text" placeholder="gare-arrivé" name="gare-arr" class="form-control rounded-pill gared-garea" id="garea" autocomplete="off">
 </div>
+<div   id="suggesstion-gare2"></div>
+<div  id="suggesstion-gare-error2"></div>
+<!--  -->
 <div class="my-3  d-flex flex-column align-items-center">
-<button type="submit" name="search" class="w-100 rounded-pill btn btn-primary">Search</button>
+<button type="submit" name="search" id="search-voyage" class="w-100 rounded-pill btn btn-primary">Search</button>
 </div>
     </form>
 <!-- reviews -->
@@ -339,7 +347,11 @@ window.onload = function(){
       document.getElementById('tempsd').value = document.getElementById('tempsa').value;
       document.getElementById('tempsa').value = time;
     }
+    
+
+// console.log(document.getElementById("suggesstion-gare").getAttribute("data-gare"));
 </Script>
 
 <script src="js/particles.js"></script>
-    <script src="js/app.js"></script>
+<script src="js/app.js"></script>
+<script src="js/search.js"></script>

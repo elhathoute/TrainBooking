@@ -1,6 +1,6 @@
 <?php
 require_once 'dbTrain.php';
-require_once '../classes/gares.class.php';
+// include_once '../classes/gares.class.php';
 
     class GaresModal extends DbTrain {
        
@@ -26,6 +26,13 @@ require_once '../classes/gares.class.php';
         $sql = "DELETE FROM gares  where id=?";
                 $stm = $this->connexion()->prepare($sql);
                  $stm->execute([$id]);
+    }
+    public function searchby($table,$by,$id){
+        $sql = "SELECT * FROM $table WHERE $by ='$id'";
+            $exe = $this->connexion()-> query($sql);
+            $res = $exe->fetch();
+            return $res;
+
     }
           
 }

@@ -1,23 +1,33 @@
 <?php
-
-// include('../classes/classes.php');
-
 include 'modal/voyagesModal.php';
-// include 'classes/voyages.class.php';
+include 'modal/garesModal.php';
+
 
 session_start();
-// if (isset($_POST['search'])) searchVoyage();
 
-// function searchVoyage()
-// {
     
   if((!empty($_GET['gare-depart']))&&(!empty($_GET['gare-arr']))){
-    $gare_dept = $_GET['gare-depart'];
-    $gare_arr = $_GET['gare-arr'];
 
+    $gare_dept = $_GET['gare-depart'];  //id
+    $gare_arr = $_GET['gare-arr'];      //id
+
+    $gare1 = new GaresModal();
+    $gareId1 = $gare1->searchby('gares', 'nom', $gare_dept);
+
+    $gare2 = new GaresModal();
+    $gareId2 = $gare2->searchby('gares', 'nom', $gare_arr);
+  
+    if($gareId1!=NULL || $gareId2 != null){
+        $searchVoyage = new VoyagesModal();
+    $resultSearchVoyage =$searchVoyage->searchvoyage();
+    }else{
     $searchVoyage = new VoyagesModal();
-    $resultSearchVoyage =$searchVoyage->searchvoyage($gare_dept,$gare_arr);
-  }
+    $resultSearchVoyage =$searchVoyage->searchvoyage($gareId1['id'],$gareId2['id']);
+   }
+       
+        
+    }
+    
   else{
 
     $searchVoyage = new VoyagesModal();
@@ -25,8 +35,6 @@ session_start();
    
   }
  
-
-// }
 
 
 
