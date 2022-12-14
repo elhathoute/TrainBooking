@@ -28,8 +28,8 @@ session_start();
                                 </a>
                                     <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
                                         <li><a class="dropdown-item mt-2 " href="# ">Mon Profil</a></li>
-                                        <li><a class="dropdown-item mt-2 " href="# ">Mes réservations</a></li>
-                                        <li><a class="dropdown-item my-2 " href="view/logoutPassenger.php">Se déconnecter</a></li>
+                                        <li><a class="dropdown-item mt-2 " href="http://localhost/dashboard-version-3/view/mesReservation.php?id=<?php echo $_SESSION['user']['id'];?>">Mes réservations</a></li>
+                                        <li><a class="dropdown-item my-2 " href="http://localhost/dashboard-version-3/view/logoutPassenger.php">Se déconnecter</a></li>
                                     </ul>
                              </li>
                     

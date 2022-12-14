@@ -33,5 +33,30 @@ require_once 'dbTrain.php';
         $exe =$this->connexion()-> prepare($sql);
         $exe ->execute([$nmbr,$id]);
     }
+
+
+    public function getOneReservation($id){
+        $sql = "SELECT reservations.*,users.nom as 'user',voyages.prix_voyage as 'prix' FROM reservations 
+        left join users on reservations.id_user=users.id 
+        left join voyages on reservations.id_voyage=voyages.id 
+        where id_user=?";
+        $stm = $this->connexion()->prepare($sql);
+        $stm->execute([$id]);
+        $res = $stm->fetchAll();
+        return $res; 
+        }
+
+
+    public function getReservationPrint($id)
+    {
+        $sql = "SELECT reservations.*,users.nom as 'user',voyages.prix_voyage as 'prix' FROM reservations 
+            left join users on reservations.id_user=users.id 
+            left join voyages on reservations.id_voyage=voyages.id 
+            where reservations.id=?";
+        $stm = $this->connexion()->prepare($sql);
+        $stm->execute([$id]);
+        $res = $stm->fetch();
+        return $res;
+    }
           
 }

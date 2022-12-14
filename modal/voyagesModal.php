@@ -52,6 +52,8 @@ require_once 'dbTrain.php';
                     if($secs>=3600){$hours=floor($secs/3600);$secs=$secs%3600;$r.=$hours.'h';}  
                     if($secs>=60){$minutes=floor($secs/60);$secs=$secs%60;$r.=$minutes.'min';}
                     return $r;  
+
+                    
                 }
                 
 }
