@@ -27,7 +27,7 @@ $commentaires = $commentaire->getCommentaires();
 <body style="background-color:#152242;">
 <?php
 
-// include_once('navbar.php');
+include_once('view/navbar.php');
 
 ?>
 <!-- hero section   -->

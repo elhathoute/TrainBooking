@@ -115,9 +115,9 @@ $resultGare2 = $gare2->getGares();
               <td id='td-2'><?php echo $voyage['date_arr']; ?></td>
               <td id='td-2-1'><?php echo $voyage['cap_voyage']; ?></td>
               <td id='td-2-2'><?php echo $voyage['prix_voyage']; ?></td>
-              <td id='td-3'><?php echo $voyage['id_train']; ?></td>
-              <td id='td-4'><?php echo $voyage['id_gare_dep']; ?></td>
-              <td id='td-5'><?php echo $voyage['id_gare_arr']; ?></td>
+              <td id='td-3' data-train="<?php echo $voyage['id_train']; ?>"><?php echo $voyage['nom-train']; ?></td>
+              <td id='td-4'data-gare-dep="<?php echo $voyage['id_gare_dep']; ?>"><?php echo $voyage['gare-depart']; ?></td>
+              <td id='td-5' data-gare-arr="<?php echo $voyage['id_gare_arr']; ?>"><?php echo $voyage['gare-arriver']; ?></td>
               <td>
               <button data-bs-toggle="modal" data-bs-target="#addVoyage" onclick="edit(<?php echo $voyage['id']; ?>)"  class="btn btn-warning"  id="<?php echo $voyage['id']; ?>"><i class="fa fa-edit"></i></button>
              
@@ -153,7 +153,7 @@ $resultGare2 = $gare2->getGares();
      <div class="modal-dialog">
        <div class="modal-content">
          <div class="modal-header">
-           <h5 class="modal-title" id="staticBackdropLabel">Add train</h5>
+           <h5 class="modal-title" id="staticBackdropLabel">Add Voyage</h5>
            <button type="button" class="btn-close rounded" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
          </div>
        <form method="POST" action="../controller/voyagesAdd.php" id="form-voyage">
@@ -286,11 +286,14 @@ $resultGare2 = $gare2->getGares();
            $('#voyage-date-arr').val($('#'+id).parent().parent().children('#td-2').html());
            $('#cap-voyage').val($('#'+id).parent().parent().children('#td-2-1').html());
            $('#prix-voyage').val($('#'+id).parent().parent().children('#td-2-2').html());
-           let train=  $('#'+id).parent().parent().children('#td-3').html();
+
+           let train=  $('#'+id).parent().parent().children('#td-3').attr('data-train');
            $('#voyage-train').val(train).change();
-           let gare_dep = $('#'+id).parent().parent().children('#td-4').html();
+
+           let gare_dep = $('#'+id).parent().parent().children('#td-4').attr('data-gare-dep');
            $('#voyage-gare-dep').val(gare_dep).change();
-           let gare_arr = $('#'+id).parent().parent().children('#td-5').html();
+
+           let gare_arr = $('#'+id).parent().parent().children('#td-5').attr('data-gare-arr');
            $('#voyage-gare-arr').val(gare_arr).change();
          
         

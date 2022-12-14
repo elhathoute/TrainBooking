@@ -1,3 +1,27 @@
+<?php
+include_once '../modal/usersModal.php';
+include_once '../modal/trainesModal.php';
+include_once '../modal/garesModal.php';
+include_once '../modal/voyagesModal.php';
+include_once '../modal/reservationsModal.php';
+
+$user = new UsersModal();
+$countUser = count($user->getUsers());
+
+$train = new TrainesModal();
+$countTrain = count($train->getTraines());
+
+$gare = new GaresModal();
+$countGare = count($gare->getGares());
+
+$voyage = new VoyagesModal();
+$countVoyage = count($voyage->getVoyages());
+
+$reservation=new ResevationModal();
+$countReservation = count($reservation->getReservation());
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +67,7 @@
                 <!-- Content Row -->
                 <div class="row">
 
-                    <!-- Earnings (Monthly) Card Example -->
+                    <!--users -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
@@ -51,7 +75,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             Users</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$countUser?></div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-users"></i>
@@ -61,7 +85,7 @@
                         </div>
                     </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
+                    <!-- traines -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
@@ -69,10 +93,61 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                              Traines</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$countTrain?></div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fa fa-train"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                         <!-- gares -->
+                         <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-danger shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                             Gares</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$countGare?></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-train"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- voyages -->
+                     <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                             Voyages</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$countVoyage?></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-car"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                      <!-- reservations -->
+                      <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                             Reservation</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$countReservation?></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-dollar"></i>
                                     </div>
                                 </div>
                             </div>
