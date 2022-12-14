@@ -33,7 +33,7 @@
                     <div class="" id="">
                         <div class="" id="navbarSupportedContent">
 
-
+                    <?php if(isset($_SESSION['user'])){?>
                         <ul class="navbar-nav d-flex flex-row justify-content-evenly ">
                                 <li class=" nav-item dropdown me-3 pe-2">
                                     <a class="nav-link dropdown-toggle text-white" href="# " role="button " data-bs-toggle="dropdown" aria-expanded="false ">
@@ -49,7 +49,12 @@
                                     <a class="nav-link " href="# "><span class="material-symbols-outlined text-white ">shopping_cart</span></a>
                                 </li>
                             </ul>
-                        
+                        <?php }else{ ?>
+                            <div class="px-4 text-center ">        
+                                <button id="login" name="login" type="submit" class="btn btn-dark rounded-3 px-3">Login</button>
+                            </div>
+
+                            <?php } ?>
 
                         </div>
                     </div>
