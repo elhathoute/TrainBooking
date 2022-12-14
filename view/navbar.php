@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="./result.css" />
 </head>
 
-<body style="background-color: rgb(242, 244, 247)">
-<nav class="navbar navbar-expand-lg" style="background-color: rgb(17, 31, 77)">
+<body >
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color: gray">
         <div class="container-fluid">
             <div class="d-flex justify-content-between w-100 flex-wrap">
                 <div class="d-flex justify-content-center">
