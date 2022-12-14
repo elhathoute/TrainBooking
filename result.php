@@ -62,37 +62,7 @@ session_start();
 </head>
 
 <body style="background-color: rgb(242, 244, 247)">
-    <nav class="navbar navbar-expand-lg" style="background-color: rgb(17, 31, 77)">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between w-100 flex-wrap">
-                <div class="d-flex justify-content-center">
-                    <a class="navbar-brand text-white" href="#" style="margin-left: 30px;"><span class="fw-bold fs-4">Your</span> <span class="fs-5">Train</span> <span class="fs-4">™</span></a>
-                </div>
-
-                <div class="">
-                    <div class="" id="">
-                        <div class="" id="navbarSupportedContent">
-
-                            <ul class="navbar-nav d-flex flex-row justify-content-evenly ">
-                                <li class=" nav-item dropdown me-3 pe-2">
-                                    <a class="nav-link dropdown-toggle text-white" href="# " role="button " data-bs-toggle="dropdown" aria-expanded="false ">
-                                        <span class="material-symbols-outlined text-white"> account_circle </span>
-                                    </a>
-                                    <ul class="dropdown-menu ">
-                                        <li><a class="dropdown-item mt-2 " href="# ">Mon Profil</a></li>
-                                        <li><a class="dropdown-item mt-2 " href="# ">Mes réservations</a></li>
-                                        <li><a class="dropdown-item my-2 " href="# ">Se déconnecter</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item me-5">
-                                    <a class="nav-link " href="# "><span class="material-symbols-outlined text-white ">shopping_cart</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </nav>
+<?php include_once('view/navbar.php');?>
 
     <section>
         <div class="container mt-5 mb-2 ">
@@ -154,13 +124,28 @@ session_start();
                           
                             <p class="px-2 fw-semibold ">A partir de</p>
                             <p class="px-2 fw-semibold">'.$vo['prix_voyage'].' MAD</p>
-         <button id="btnReserv" name="save" type="submit" class="btn btn-dark px-3"  
-         onclick="showReservation('.$vo['id'].','.$vo['prix_voyage'].','.$vo['cap_voyage'].');"
-         data-bs-toggle="modal" data-bs-target="#addReservation" id="add-reservation">Réserver</button>
-                        </div>
-                    </div>
-                </div>
-                    ';
+
+                            '?>
+                            <?php   if(isset($_COOKIE['email_cookie'])&&($_SESSION['user']['id_role']==2)){?>
+                                <?php echo '
+                                    <button id="btnReserv" name="save" type="submit" class="btn btn-dark px-3"  
+                                    onclick="showReservation('.$vo['id'].','.$vo['prix_voyage'].','.$vo['cap_voyage'].');"
+                                    data-bs-toggle="modal" data-bs-target="#addReservation" id="add-reservation">Réserver</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                          '; } else{
+                                            echo'
+             <a href="view/signin.php" id="login" name="login"  class="btn btn-warning rounded-3 px-3"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                            ';
+                                          }
+
+                   
+               
+              
                 }
             
 
