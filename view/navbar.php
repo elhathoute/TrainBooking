@@ -15,18 +15,15 @@
     <link rel="stylesheet" href="./result.css" />
 </head>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 <body >
 <nav class="navbar navbar-expand-lg fixed-top" style="background-color:slategrey">
-=======
+
 <body style="background-color: rgb(242, 244, 247)">
 <nav class="navbar navbar-expand-lg" style="background-color: rgb(17, 31, 77)">
->>>>>>> 71e93236d5122f056109027cc4b80156ed5cf66c
-=======
+
 <body style="background-color: rgb(242, 244, 247)">
 <nav class="navbar navbar-expand-lg" style="background-color: rgb(17, 31, 77)">
->>>>>>> abdelaziz
+
         <div class="container-fluid">
             <div class="d-flex justify-content-between w-100 flex-wrap">
                 <div class="d-flex justify-content-center">
