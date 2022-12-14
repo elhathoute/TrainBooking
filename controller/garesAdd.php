@@ -1,6 +1,7 @@
 <?php
 
 require_once '../modal/garesModal.php';
+require_once '../classes/gares.class.php';
 session_start();
 
 if (isset($_POST['save'])) saveGare();
