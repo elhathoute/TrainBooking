@@ -15,8 +15,13 @@
     <link rel="stylesheet" href="./result.css" />
 </head>
 
+<<<<<<< HEAD
 <body >
 <nav class="navbar navbar-expand-lg fixed-top" style="background-color:slategrey">
+=======
+<body style="background-color: rgb(242, 244, 247)">
+<nav class="navbar navbar-expand-lg" style="background-color: rgb(17, 31, 77)">
+>>>>>>> 71e93236d5122f056109027cc4b80156ed5cf66c
         <div class="container-fluid">
             <div class="d-flex justify-content-between w-100 flex-wrap">
                 <div class="d-flex justify-content-center">
@@ -27,7 +32,9 @@
                     <div class="" id="">
                         <div class="" id="navbarSupportedContent">
 
+
                         <?php if(isset($_SESSION['user'])){?>
+
                             <ul class="navbar-nav d-flex flex-row justify-content-evenly ">
                                 <li class=" nav-item dropdown me-3 pe-2">
                                     <a class="nav-link dropdown-toggle text-white" href="# " role="button " data-bs-toggle="dropdown" aria-expanded="false ">
@@ -43,9 +50,11 @@
                                     <a class="nav-link " href="# "><span class="material-symbols-outlined text-white ">shopping_cart</span></a>
                                 </li>
                             </ul>
+                            
                         <?php } else {?>
                             <button  name="login" type="button" class="btn btn-dark px-3" >Login</button>
                             <?php } ?>
+
                         </div>
                     </div>
                 </div>
