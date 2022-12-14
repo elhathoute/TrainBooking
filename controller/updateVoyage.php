@@ -19,7 +19,11 @@ function updateVoyage(){
 
 $voyage = new VoyagesModal();
 <<<<<<< HEAD
+<<<<<<< HEAD
 $voyage->updateVoyage(new Voyages($id,$date_dep, $date_arr,$cap_voyage,$prix_voyage, $train, $gare_dep, $gare_arr));
+=======
+$voyage->updateVoyage(new Voyages($id,$date_dep,$date_arr,$cap_voyage,$prix_voyage,$train,$gare_dep,$gare_arr));
+>>>>>>> 71e93236d5122f056109027cc4b80156ed5cf66c
 =======
 $voyage->updateVoyage(new Voyages($id,$date_dep,$date_arr,$cap_voyage,$prix_voyage,$train,$gare_dep,$gare_arr));
 >>>>>>> 71e93236d5122f056109027cc4b80156ed5cf66c

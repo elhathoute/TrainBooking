@@ -31,7 +31,10 @@ require_once 'dbTrain.php';
                 $stm = $this->connexion()->prepare($sql);
                  $stm->execute([$voyage->getdatedepVoyage(),$voyage->getdatearrVoyage(),$voyage->getcapaciteVoyage(),$voyage->getPrixVoyage(),$voyage->getTrainVoyage(),$voyage->getGaredepVoyage(),$voyage->getGarearrVoyage(),$voyage->getidVoyage()]);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 71e93236d5122f056109027cc4b80156ed5cf66c
                 }
 
                 public function searchvoyage($gd = 'any(SELECT `id_gare_dep` FROM `voyages`)',$ga = 'any(SELECT `id_gare_arr` FROM `voyages`)'){
@@ -54,6 +57,9 @@ require_once 'dbTrain.php';
                     if($secs>=3600){$hours=floor($secs/3600);$secs=$secs%3600;$r.=$hours.'h';}  
                     if($secs>=60){$minutes=floor($secs/60);$secs=$secs%60;$r.=$minutes.'min';}
                     return $r;  
+<<<<<<< HEAD
+>>>>>>> 71e93236d5122f056109027cc4b80156ed5cf66c
+=======
 >>>>>>> 71e93236d5122f056109027cc4b80156ed5cf66c
                 }
                 
