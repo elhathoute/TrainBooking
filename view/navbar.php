@@ -16,13 +16,8 @@
 </head>
 
 <body >
+
 <nav class="navbar navbar-expand-lg fixed-top" style="background-color:slategrey">
-
-<body style="background-color: rgb(242, 244, 247)">
-<nav class="navbar navbar-expand-lg" style="background-color: rgb(17, 31, 77)">
-
-<body style="background-color: rgb(242, 244, 247)">
-<nav class="navbar navbar-expand-lg" style="background-color: rgb(17, 31, 77)">
 
         <div class="container-fluid">
             <div class="d-flex justify-content-between w-100 flex-wrap">
@@ -35,7 +30,21 @@
                         <div class="" id="navbarSupportedContent">
 
 
-
+                        <ul class="navbar-nav d-flex flex-row justify-content-evenly ">
+                                <li class=" nav-item dropdown me-3 pe-2">
+                                    <a class="nav-link dropdown-toggle text-white" href="# " role="button " data-bs-toggle="dropdown" aria-expanded="false ">
+                                        <span class="material-symbols-outlined text-white"> account_circle </span>
+                                    </a>
+                                    <ul class="dropdown-menu ">
+                                        <li><a class="dropdown-item mt-2 " href="# ">Mon Profil</a></li>
+                                        <li><a class="dropdown-item mt-2 " href="# ">Mes réservations</a></li>
+                                        <li><a class="dropdown-item my-2 " href="# ">Se déconnecter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item me-5">
+                                    <a class="nav-link " href="# "><span class="material-symbols-outlined text-white ">shopping_cart</span></a>
+                                </li>
+                            </ul>
                         
 
                         </div>
