@@ -196,7 +196,7 @@ session_start();
    
    
      <div class="mb-1 col-md-12">
-       <input type="text" class="form-control verify-form" value="1" id="reservation-user" hidden name="reservation-user" autocomplete="off" readonly required />
+       <input type="text" class="form-control verify-form" value="<?php echo $_SESSION['user']['id']; ?>" id="reservation-user" hidden name="reservation-user" autocomplete="off" readonly required />
      </div>
 
    
