@@ -2,8 +2,8 @@
 
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
-
+    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar"
+    
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
             <div class="sidebar-brand-icon rotate-n-15">
@@ -71,6 +71,13 @@
                 <span>Reservations</span></a>
         </li>
 
+         <!-- Divider -->
+         <hr class="sidebar-divider">
+         <li class="nav-item">
+            <a class="nav-link" href="traines.php">
+                <i class="fa fa-sign-out"></i>
+                <span>Logout</span></a>
+        </li>
          <!-- Divider -->
          <hr class="sidebar-divider">
     </ul>

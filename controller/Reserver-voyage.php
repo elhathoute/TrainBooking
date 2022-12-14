@@ -7,6 +7,11 @@ session_start();
 if (isset($_POST['save'])) saveReservation();
 
 function saveReservation(){
+
+
+$idVoyage=$_POST['reservation-voyage'];
+
+//reservation
 $id='';
 $date_reservation=$_POST['reservation-date'];
 $user_reservation=$_POST['reservation-user'];
@@ -15,8 +20,9 @@ $etat_reservation=$_POST['reservation-etat'];
 $cap_reservation=$_POST['reservation-capacite'];	
 $reservation= new ResevationModal();
 $reservation->insertReservation(new Reserve($id,$date_reservation, $user_reservation, $voyage_reservation, $etat_reservation,$cap_reservation));
-    $_SESSION['add-reservation'] = 'reservation ajouter avec succée !';
-header('location:../view/reservations.php');
+$reservation->updateVoyages($idVoyage,$cap_reservation);
+// setcookie('reservation', 1, time() + (86400 * 30), "/");
+header('location:../result.php');
 }
 
 ?>

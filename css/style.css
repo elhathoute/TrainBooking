@@ -1,0 +1,110 @@
+body{
+    background-color: #e6e6e6;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+  }
+#button{
+    background-color: #009EFF;
+    color: #ffffff;
+    box-shadow: none;
+}
+#button:hover{
+    background-color: #0008C1;
+    color: #ffffff;
+}
+.signinform{
+    right: 50px;
+    top: 60px;
+    display: none;
+  }
+  .signinform.active{
+    display: block;
+    animation-name: example1;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+  }
+#buttonR{
+    background-color: #009EFF;
+    color: #ffffff;
+}
+#buttonS{
+    background-color: #0008C1;
+    color: #ffffff;
+}
+.containe{
+    width: 50%;
+    margin: auto;
+}
+@media only screen and (max-width: 800px) {
+    .containe{
+        width: 90%;
+    }
+}
+@media only screen and (max-width: 1000px) and (min-width: 801px){
+    .containe{
+        width: 75%;
+    }
+}
+.form-outline input{
+    background: none;
+    border: #009EFF solid 2px;
+    outline: none;
+    color: #009EFF;
+    padding: 10px;
+    padding-left: 30px;
+}
+.form-outline{
+    position: relative;
+}
+.form-label{
+    position: absolute;
+    left: 30px;
+    top: 10px;
+    color: #009EFF;
+    transition: 0.5s;
+    opacity: 0.7;
+    cursor: text;
+    pointer-events:none;
+}
+.form-outline input:not(:placeholder-shown) ~ label,
+.form-outline input:focus ~ label{
+    transform: translateY(-20px);
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #009EFF;
+    color: #0008C1;
+    font-size: smaller;
+    letter-spacing: 5px;
+    opacity: 1;
+}
+#icon1,#icon2{
+    position: absolute;
+    top: 6px;
+    right: 10px;
+}
+#icon2{
+    display: none;
+}
+a{
+    text-decoration: none;
+    color: #009EFF;
+}
+a:hover{
+    color: #0008C1;
+}
+#flexSwitchCheckDefault{
+    background-color: #009EFF;
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+#flexSwitchCheckDefault:checked{
+    background-color: #0008C1;
+    background-color: #293659;
+    outline: none;
+    border: none;
+    box-shadow: none;
+}

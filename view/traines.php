@@ -25,6 +25,7 @@ $resultTrain = $train->getTraines();
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    
     <!-- Custom fonts for this template-->
     <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
@@ -94,6 +95,9 @@ $resultTrain = $train->getTraines();
         <?php
        
           foreach ($resultTrain as $train) {
+          $idTrain = $train['id'];
+          $TrainVoyage = new TrainesModal();
+          $count = count($TrainVoyage->getTraineInVoyage($idTrain));
           ?>
 
             <tr>
@@ -106,10 +110,11 @@ $resultTrain = $train->getTraines();
               <td>
 
                 <button data-bs-toggle="modal" data-bs-target="#addTrain" onclick="edit(<?php echo $train['id']; ?>)"  class="btn btn-warning"  id="<?php echo $train['id']; ?>"><i class="fa fa-edit"></i></button>
-                
+                <?php if($count==0){?>
                 <a href="../controller/deleteTrain.php?id=<?php echo $train['id']; ?>" onclick="return confirm('Are you sure you want to delete this train?')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-
-
+                  <?php } else {?>
+                    <a href="voyages.php" onclick="return alert('supprimer voyage lier a cette train?')" class="btn btn-secondary"><i class="fa fa-car"></i></a>
+                    <?php }  ?>
               </td>
 
 
@@ -157,13 +162,13 @@ $resultTrain = $train->getTraines();
 
   <div class="mb-1 col-md-12">
     <label class="form-label">nom</label>
-    <input type="text" class="form-control " id="nom-train" name="nom-train" autocomplete="off" placeholder="Exemple:train" required />
+    <input type="text" class="form-control verify-form" id="nom-train" name="nom-train" autocomplete="off" placeholder="Exemple:train" required />
   </div>
 
   <div class="mb-1 col-md-12"> 
   <label class="form-label">cap-train</label>
   <div>
-  <select class="form-control " id="train-capacite" name="train-capacite" >
+  <select class="form-control verify-form" id="train-capacite" name="train-capacite" >
     <option value="" selected>Please select</option>
     <option id="" value="100" >100 personne</option>
     <option id="" value="200" >200 personne</option>
@@ -179,7 +184,7 @@ $resultTrain = $train->getTraines();
 <div class="mb-1 col-md-12"> 
   <label class="form-label">vitesse</label>
   <div>
-  <select class="form-control" id="train-vitesse" name="train-vitesse" >
+  <select class="form-control verify-form" id="train-vitesse" name="train-vitesse" >
     <option value="" selected>Please select</option>
     <option id="" value="100" >100 km/h</option>
     <option id="" value="150" >150 km/h</option>
@@ -190,15 +195,19 @@ $resultTrain = $train->getTraines();
   </div>
 </div>
 
-<div class="mb-3 col-12">
+<div class="mb-2 col-12">
  <label for=""></label>
   <div>
-  <select class="form-control" id="train-etat" name="train-etat" >
+  <select class="form-control " id="train-etat" name="train-etat" >
     <option value="" selected>Please select</option>
     <option id="" value="1" >disponible</option>
     <option id="" value="0" >non disponible</option>
   </select>
   </div>
+</div>
+
+<div class="mb-3  col-12 rounded-pill" id="error-gare">
+  <p></p>
 </div>
  
 
@@ -282,16 +291,23 @@ $resultTrain = $train->getTraines();
     
    //data table
     $('#table-traines').DataTable();
-   //verification inputs
-       $('#nom-train').keyup(function(){
-      let nom_train = $(this).val();
-     
-   ((nom_train !='')) ?  $(this).removeClass('is-invalid').addClass('is-valid') : $(this).removeClass('is-valid').addClass('is-invalid') ;
     
-    });
+    $('#train-save-btn').prop('disabled', true);
+    $('#train-update-btn').prop('disabled', true);
+    $('.verify-form').on('keyup keypress blur change', function(e) {
 
-
-
-// });
+      let nom_train = $('#nom-train').val();
+      let train_cap = $('#train-capacite').val();
+      let vitesse_train = $('#train-vitesse').val();
+  
+    if((nom_train!='')&&(train_cap!='')&&(vitesse_train)!=''){
+     $('#train-save-btn').prop('disabled', false);
+     $('#train-update-btn').prop('disabled', false);
+    }else{
+      $('#train-save-btn').prop('disabled', true);
+      $('#train-update-btn').prop('disabled', true);
+    }
+});
+   
 </script>
 </html>

@@ -3,8 +3,7 @@
 require_once '../modal/voyagesModal.php';
 require_once '../classes/voyages.class.php';
 session_start();
-$para = $_GET['para'];
-echo $para;
+
 if (isset($_POST['update'])) updateVoyage();
 
 function updateVoyage(){
@@ -19,7 +18,11 @@ function updateVoyage(){
 
 
 $voyage = new VoyagesModal();
+<<<<<<< HEAD
 $voyage->updateVoyage(new Voyages($id,$date_dep, $date_arr,$cap_voyage,$prix_voyage, $train, $gare_dep, $gare_arr));
+=======
+$voyage->updateVoyage(new Voyages($id,$date_dep,$date_arr,$cap_voyage,$prix_voyage,$train,$gare_dep,$gare_arr));
+>>>>>>> 71e93236d5122f056109027cc4b80156ed5cf66c
     $_SESSION['add-voyage'] = 'voyage editer avec succée !';
 header('location:../view/voyages.php');
 
