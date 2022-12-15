@@ -1,7 +1,7 @@
 $(document).ready(function() {
     //search depart
   
-	$("#gared").on('mouseleave keyup keydown blur', function() {
+	$("#gared").on('keyup ', function() {
        let gared = $("#gared").val();
 		$.ajax({
 			type: "POST",

@@ -1,13 +1,17 @@
 <?php
 include '../modal/voyagesModal.php';
 include '../modal/reservationsModal.php';
-session_start();
+include '../modal/usersModal.php';
+// session_start();
 //voyages
 $voyage = new VoyagesModal();
 $resultVoyage = $voyage->getVoyages();
 //reservations
 $reservation = new ResevationModal();
 $resultReservation =$reservation->getReservation();
+//users
+$user = new UsersModal();
+$resultUser = $user->getUsers();
 ?>
 
 
@@ -98,7 +102,7 @@ $resultReservation =$reservation->getReservation();
         <tr>
               <th scope="row"><?php echo $reservation['id']; ?></th>
               <td id='td-1'><?php echo $reservation['date_reserve']; ?></td>
-              <td id='td-2'><?php echo $reservation['id_user']; ?></td>
+              <td id='td-2' data-user="<?php echo $reservation['id-user']; ?>"><?php echo $reservation['user']; ?></td>
               <td id='td-3'><?php echo $reservation['id_voyage']; ?></td>
               <td id='td-4'><?php  if($reservation['etat']==1){
              echo '<span class="badge badge-success td-4-1">Confirmer</span>';
@@ -158,12 +162,27 @@ $resultReservation =$reservation->getReservation();
        <label class="form-label">reservation-date</label>
        <input type="datetime-local" class="form-control verify-form" id="reservation-date" name="reservation-date" autocomplete="off" required />
      </div>
+
+     <div class="mb-1 col-md-12"> 
+     <label class="form-label">reservation_user</label>
+     <div>
+     <select class="form-control verify-form" id="reservation-user" name="reservation-user" >
+       <option value="" selected>Please select</option>
+       <?php
+       
+       foreach ($resultUser  as $user) {
+       ?>
+       <option id="" value="<?php echo $user['id']; ?>" ><?php echo $user['nom']; ?></option>
+      <?php } ?>
+     </select>
+     </div>
+   </div>
    
-   
+<!--    
      <div class="mb-1 col-md-12">
        <label class="form-label">reservation-user</label>
        <input type="text" class="form-control verify-form" value="1" id="reservation-user" name="reservation-user" autocomplete="off" readonly required />
-     </div>
+     </div> -->
 
    
      <div class="mb-1 col-md-12"> 
@@ -244,9 +263,9 @@ $resultReservation =$reservation->getReservation();
        <!-- Page level custom scripts -->
        <script src="../js/demo/datatables-demo.js"></script>
    <script >
- 
-       //btn of edit
-       function edit(id){
+
+ //btn of edit
+ function edit(id){
          $("#reservation-save-btn").css("display", "none");
          $("#reservation-update-btn").css("display", "block");
    
@@ -254,12 +273,12 @@ $resultReservation =$reservation->getReservation();
            $('#form-reservation').attr('action', '../controller/updateReservation.php');
            $('#reservation-id').val(id);
            $('#reservation-date').val($('#'+id).parent().parent().children('#td-1').html());
-           $('#reservation-user').val($('#'+id).parent().parent().children('#td-2').html());
+           $('#reservation-user').val($('#'+id).parent().parent().children('#td-2').attr('data-user')).change();
            $('#reservation-voyage').val($('#'+id).parent().parent().children('#td-3').html());
            let reservation_etat =$('#'+id).parent().parent().children('#td-4').children('.td-4-1').html();
            (reservation_etat=='Confirmer')?($('#reservation-etat').val(1).change()):($('#reservation-etat').val(2).change());
-          
-        
+      
+        console.log($('#'+id).parent().parent().children('#td-2').attr('data-user'));
        }
     
     //    //btn of save
@@ -294,7 +313,9 @@ $resultReservation =$reservation->getReservation();
       $('#reservation-update-btn').prop('disabled', true);
     }
 });
+ 
+      
    
-//    });
+
    </script>
    </html>

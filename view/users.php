@@ -94,22 +94,30 @@ $resultUser=$user->getUsers();
         echo 'Passenger';
         ?>
    </td>
-     <td>
+     <td >
+     <?php
+        $count= $user->getCounAdmin($_SESSION['user']['id_role']);
+        //  if( count($count) >=1 ){
+ ?>
+       <a data-countAdmin="<?php echo count($count);?>"   href="../controller/changerRole.php?role=<?php echo $users['id_role'];?>&id=<?php echo $users['id'];?>" class="btn btn-<?php
+        if ($users['id_role'] == 1) {?><?php echo 'success';
+          ?>" id="changer-role"
+          <?php
+        } 
       
-       <a href="../controller/changerRole.php?role=<?php echo $users['id_role'];?>&id=<?php echo $users['id'];?>" class="btn btn-<?php
-        if ($users['id_role'] == 1)echo 'success'; 
-        else   echo 'danger';
-           ?>"
-           ><i class="fa fa-<?php
+        else {
+            echo 'primary';
+          } ?>"><i class="fa fa-<?php
         if ($users['id_role'] == 1)
-           echo 'check';
+           echo 'lock';
        else
-           echo 'times';?>"></i></a>
+           echo 'user';?>"></i></a>
+           <?php } ?>
 
    </td>
 
    </tr>
-<?php }?>
+<?php /*}*/?>
   
      
         </tbody>
@@ -165,7 +173,16 @@ $resultUser=$user->getUsers();
 </div>
 <!-- End of Page Wrapper -->
 </body>
-
+<script>
+let role= document.getElementById('changer-role').getAttribute('data-countadmin');
+if(role==1){
+  console.log('ok')
+  document.getElementById('changer-role').classList.add('disabled');
+}else{
+  console.log('non-ok')
+  document.getElementById('changer-role').classList.remove('disabled');
+}
+</script>
 
 
 

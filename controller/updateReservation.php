@@ -14,10 +14,11 @@ function updateReservations(){
  $user_reservation=$_POST['reservation-user'];
  $voyage_reservation=$_POST['reservation-voyage'];
  $etat_reservation=$_POST['reservation-etat'];
+ $cap_reservation=$_POST['reservation-capacite'];	
 
 
  $reservation= new ResevationModal();
- $reservation->updateReservation(new Reserve($id,$date_reservation, $user_reservation, $voyage_reservation, $etat_reservation));
+ $reservation->updateReservation(new Reserve($id,$date_reservation, $user_reservation, $voyage_reservation, $etat_reservation,$cap_reservation));
      $_SESSION['add-reservation'] = 'reservation editer avec succée !';
      
  header('location:../view/reservations.php');

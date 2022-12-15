@@ -1,4 +1,6 @@
-
+<?php
+session_start();
+?>
 
 
     <!-- Sidebar -->
@@ -70,7 +72,14 @@
                 <i class="fa fa-dollar"></i>
                 <span>Reservations</span></a>
         </li>
+  <!-- Divider -->
+  <hr class="sidebar-divider">
 
+<li class="nav-item">
+   <a class="nav-link" href="#">
+       <i class="fa fa-user"></i>
+       <span><?php echo $_SESSION['user']['nom']; ?></span></a>
+</li>
          <!-- Divider -->
          <hr class="sidebar-divider">
          <li class="nav-item">
@@ -78,11 +87,11 @@
                 <i class="fa fa-sign-out"></i>
                 <span>Logout</span></a>
         </li>
-         <!-- Divider -->
-         <hr class="sidebar-divider">
+       
+    
     </ul>
 
-    
+  
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->

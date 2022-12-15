@@ -3,7 +3,7 @@ include 'modal/voyagesModal.php';
 include 'modal/garesModal.php';
 
 
-session_start();
+// session_start();
 
     
   if((!empty($_GET['gare-depart']))&&(!empty($_GET['gare-arr']))){

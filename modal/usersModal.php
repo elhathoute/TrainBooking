@@ -1,5 +1,5 @@
 <?php
-include 'dbTrain.php';
+// include 'dbTrain.php';
 
     class UsersModal extends DbTrain {
        
@@ -40,5 +40,13 @@ include 'dbTrain.php';
         return $stm;
     }
 
+    public function getCounAdmin($id){
+        $sql = "SELECT * FROM `users` WHERE `id_role` = ?";
+        $exe = $this->connexion() -> prepare($sql);
+        $exe ->execute([$id]);
+        $res = $exe -> fetchAll();
+        return $res; 
+
+    }
 
 }

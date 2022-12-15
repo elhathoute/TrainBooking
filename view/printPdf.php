@@ -26,7 +26,7 @@ $pdf->SetFont('Arial', '', 12);
 
 
 
-$pdf->Write($h, "Je soussigne, Directeur du ONCF que : \n");
+$pdf->Write($h, "Je soussigne, Directeur du SPEED RAPIDE que : \n");
 // Saut de ligne
 $pdf->Ln(5);
 $pdf->SetFont('', 'BI');
@@ -62,7 +62,7 @@ $pdf->Cell(0, 5, 'Fait a Youssoufia :' . date("d-m-y h:i:s"), 0, 1, 'C');
 $pdf->Ln(10);
 // Décalage de 50 mm à droite
 $pdf->Cell(50);
-$pdf->Cell(80, 8, "Le directeur du ONCF", 1, 1, 'C');
+$pdf->Cell(80, 8, "Le directeur du SPEED RAPIDE", 1, 1, 'C');
 
 // Décalage de 50 mm à droite
 $pdf->Cell(50);

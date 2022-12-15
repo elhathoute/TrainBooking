@@ -1,7 +1,7 @@
 <?php
 include '../modal/usersModal.php';
 include '../modal/trainesModal.php';
-session_start();
+// session_start();
 //getAll users
 $user = new UsersModal();
 $resultUser=$user->getUsers();

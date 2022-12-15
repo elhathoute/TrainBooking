@@ -54,6 +54,31 @@ if(isset($_POST['signin1'])){
     }}
 
 
+//update profile
+    if(isset($_POST['update_profile'])){
+    $nom = $_POST['yourname'];
+    $email = $_POST['email'];
+    $id= $_SESSION['user']['id'];
+    $user = new user($nom,$email,null,null);
+    if(preg_match("/^[a-zA-Z ]*$/",$user->nom) && (filter_var($user->email, FILTER_VALIDATE_EMAIL))){
+        $user->updateUser($id);
+       $_SESSION['user']['nom']=$nom;
+       $_SESSION['user']['email']= $email ;
+        header('location:http://localhost/dashboard-version-3/index.php');
+    }
+    else{
+        header('location:http://localhost/dashboard-version-3/view/profile.php');
+    }
+  
+    }
+if (isset($_POST['delete_profile'])) {
+    user::deleteUser($_SESSION['user']['id']);
+    header('location:http://localhost/dashboard-version-3/index.php');
+    unset($_SESSION['user']);
+}
+
+
+
 if(isset($_POST['logout'])){user::logout();header('location:header.php');}
 
 ?>
