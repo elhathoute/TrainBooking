@@ -106,7 +106,19 @@ class user extends dbcon{
     }
     static public function logout(){
         session_destroy();
+    }
+    static function deleteUser($id){
+        $sql = "DELETE FROM `users` WHERE  `id` = ?";
+        $exe = self::conn() -> prepare($sql);
+        $exe ->execute([$id]);
+    }
+    function updateUser($id){
+        $sql = "UPDATE `users` SET `nom`=?,`email`=? WHERE `id` = ?";
+        $exe = self::conn() -> prepare($sql);
+        $exe ->execute([$this->nom,$this->email,$id]);
     } 
+    
+
 }
 
 

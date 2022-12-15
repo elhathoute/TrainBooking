@@ -3,7 +3,7 @@
 include '../modal/garesModal.php';
 include '../modal/villesModal.php';
 
-session_start();
+// session_start();
 
 $gare = new GaresModal;
 $resultGare = $gare->getGares();

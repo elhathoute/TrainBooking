@@ -3,7 +3,7 @@
 include '../modal/trainesModal.php';
 include '../modal/garesModal.php';
 include '../modal/voyagesModal.php';
-session_start();
+// session_start();
 //voyages
 $voyage = new VoyagesModal;
 $resultVoyage = $voyage->getVoyages();

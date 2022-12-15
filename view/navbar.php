@@ -19,7 +19,7 @@ session_start();
 
                     <?php
                     
-                    if(isset($_COOKIE['email_cookie'])&&($_SESSION['user']['id_role']==2)){?>
+                    if(isset($_COOKIE['email_cookie'])&&(isset($_SESSION['user']['id_role']))&&($_SESSION['user']['id_role']==2)){?>
                         <ul class="navbar-nav d-flex flex-row justify-content-evenly ">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,7 +27,7 @@ session_start();
 
                                 </a>
                                     <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item mt-2 " href="# ">Mon Profil</a></li>
+                                        <li><a class="dropdown-item mt-2 " href="http://localhost/dashboard-version-3/view/profile.php">Mon Profil</a></li>
                                         <li><a class="dropdown-item mt-2 " href="http://localhost/dashboard-version-3/view/mesReservation.php?id=<?php echo $_SESSION['user']['id'];?>">Mes réservations</a></li>
                                         <li><a class="dropdown-item my-2 " href="http://localhost/dashboard-version-3/view/logoutPassenger.php">Se déconnecter</a></li>
                                     </ul>
@@ -39,7 +39,7 @@ session_start();
                             </ul>
                         <?php }else{ ?>
                             <div class="px-4 text-center ">        
-                                <a href="view/signin.php" id="login" name="login"  class="btn btn-dark rounded-3 px-3">Login</a>
+                                <a href="http://localhost/dashboard-version-3/view/signin.php" id="login" name="login"  class="btn btn-dark rounded-3 px-3">Login</a>
                             </div>
 
                             <?php } ?>

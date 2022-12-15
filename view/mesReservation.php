@@ -99,8 +99,8 @@ else{
 
                             <div class="container">
                             <div class="px-4 text-center ">
-                            <img class="h-25" src="../img/delete.jpg" alt="">
-                            <p class="text-danger">Reservation Not Found!</p>
+                            <!-- <img class="" src="../img/delete.jpg" alt=""> -->
+                            <p class="text-danger fs-5">Reservation Not Found!</p>
                             </div>
                           
                         </div>
