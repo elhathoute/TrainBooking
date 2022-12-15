@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 08 déc. 2022 à 11:32
--- Version du serveur : 10.4.24-MariaDB
--- Version de PHP : 8.1.6
+-- Généré le : jeu. 15 déc. 2022 à 09:19
+-- Version du serveur : 10.4.27-MariaDB
+-- Version de PHP : 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,7 +31,17 @@ CREATE TABLE `commentaires` (
   `id` int(11) NOT NULL,
   `commentaire` varchar(255) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `commentaires`
+--
+
+INSERT INTO `commentaires` (`id`, `commentaire`, `id_user`) VALUES
+(1, 'train zwin bezaf', 3),
+(2, 'voyage nadi', 4),
+(3, 'good voyage', 9),
+(4, 'nice nice nice', 12);
 
 -- --------------------------------------------------------
 
@@ -43,19 +53,7 @@ CREATE TABLE `gares` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) DEFAULT NULL,
   `id_ville` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `gares`
---
-
-INSERT INTO `gares` (`id`, `nom`, `id_ville`) VALUES
-(1, 'gare11', 9),
-(2, 'gare1', 10),
-(3, 'gare3', 1),
-(4, 'gare4', 2),
-(7, 'gare22', 23),
-(8, 'gare112', 10);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -66,7 +64,7 @@ INSERT INTO `gares` (`id`, `nom`, `id_ville`) VALUES
 CREATE TABLE `region` (
   `id` int(11) NOT NULL,
   `region` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Déchargement des données de la table `region`
@@ -97,8 +95,9 @@ CREATE TABLE `reservations` (
   `date_reserve` datetime DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_voyage` int(11) DEFAULT NULL,
-  `etat` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `etat` int(11) DEFAULT NULL,
+  `cap_reservation` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -109,7 +108,7 @@ CREATE TABLE `reservations` (
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `roles`
@@ -131,19 +130,17 @@ CREATE TABLE `trains` (
   `capacite_train` int(11) DEFAULT NULL,
   `vitesse` int(11) DEFAULT NULL,
   `etat` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `trains`
 --
 
 INSERT INTO `trains` (`id`, `nom`, `capacite_train`, `vitesse`, `etat`) VALUES
-(7, 'train', 200, 150, 1),
-(8, 'hghj', 400, 150, 1),
-(9, 'tr1', 400, 150, 1),
-(10, 'gfg', 100, 200, 1),
-(11, 'khjkh', 100, 150, 1),
-(12, 'train44', 200, 250, 1);
+(13, 'Alboraq', 100, 300, 1),
+(14, 'Atlas', 200, 200, 1),
+(15, 'Speed Rapid', 300, 250, 1),
+(16, 'My Train', 100, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -158,7 +155,7 @@ CREATE TABLE `users` (
   `password` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `id_role` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `users`
@@ -171,7 +168,10 @@ INSERT INTO `users` (`id`, `nom`, `email`, `password`, `image`, `id_role`) VALUE
 (4, 'youssef', 'youssef@gmail.com', NULL, NULL, 1),
 (7, 'JHZKJH JDJJD', 'azize@gmail.com', NULL, NULL, 2),
 (8, 'JHZKJH JDJJDyr(y', 'azize@gmail.com', NULL, NULL, 2),
-(9, 'ELHATHOUT ABDELAZIZ', 'a.elhathout@student.youcode.ma', NULL, NULL, 2);
+(9, 'ELHATHOUT ABDELAZIZ', 'a.elhathout@student.youcode.ma', NULL, NULL, 2),
+(10, 'azize', 'abdelaazizeelhathoute.2018@gmail.com', '$2y$10$i7K1sNwA1KLVwdEX7LiaE.956I7IoxN4.ack46aCqsiHOM0GY3wea', '', 1),
+(11, 'youssef', 'youssef@youssef.com', '$2y$10$f0kc9pOb95.yDp1Pg1VEeujSaHhcgwDRoovcbHrw/4QUj80DD9qaG', '', 2),
+(12, 'noha', 'NOHA@GMAIL.com', '$2y$10$3GxGpFVcqEDQK1em50EeeOqSgDQeL6A59EavCAd5qAdndCgyhER/u', '', 2);
 
 -- --------------------------------------------------------
 
@@ -183,7 +183,7 @@ CREATE TABLE `villes` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) DEFAULT NULL,
   `region` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `villes`
@@ -593,21 +593,14 @@ INSERT INTO `villes` (`id`, `nom`, `region`) VALUES
 
 CREATE TABLE `voyages` (
   `id` int(11) NOT NULL,
-  `date_dep` date DEFAULT NULL,
-  `date_arr` date DEFAULT NULL,
+  `date_dep` datetime DEFAULT NULL,
+  `date_arr` datetime DEFAULT NULL,
   `cap_voyage` int(11) NOT NULL,
   `prix_voyage` int(11) NOT NULL,
   `id_train` int(11) DEFAULT NULL,
   `id_gare_dep` int(11) DEFAULT NULL,
   `id_gare_arr` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `voyages`
---
-
-INSERT INTO `voyages` (`id`, `date_dep`, `date_arr`, `cap_voyage`, `prix_voyage`, `id_train`, `id_gare_dep`, `id_gare_arr`) VALUES
-(4, '2022-12-10', '2022-12-02', 0, 0, 7, 1, 2);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Index pour les tables déchargées
@@ -684,7 +677,7 @@ ALTER TABLE `voyages`
 -- AUTO_INCREMENT pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `gares`
@@ -702,7 +695,7 @@ ALTER TABLE `region`
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `roles`
@@ -714,13 +707,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT pour la table `trains`
 --
 ALTER TABLE `trains`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `villes`
@@ -732,7 +725,7 @@ ALTER TABLE `villes`
 -- AUTO_INCREMENT pour la table `voyages`
 --
 ALTER TABLE `voyages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Contraintes pour les tables déchargées
@@ -749,13 +742,6 @@ ALTER TABLE `commentaires`
 --
 ALTER TABLE `gares`
   ADD CONSTRAINT `gares_ibfk_1` FOREIGN KEY (`id_ville`) REFERENCES `villes` (`id`);
-
---
--- Contraintes pour la table `reservations`
---
-ALTER TABLE `reservations`
-  ADD CONSTRAINT `reservations_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `classes` (`id`),
-  ADD CONSTRAINT `reservations_ibfk_2` FOREIGN KEY (`id_voyage`) REFERENCES `voyages` (`id`);
 
 --
 -- Contraintes pour la table `users`
