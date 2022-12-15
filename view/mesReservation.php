@@ -1,10 +1,12 @@
 <?php
 include_once '../modal/reservationsModal.php';
+// session_start();
 $id = $_GET['id'];
 $reservation = new ResevationModal();
 $resultatReservation= $reservation->getOneReservation($id);
 
 $countReservation=count($resultatReservation);
+setcookie('count-reservation',$countReservation,time()+(3600*24), '/');
 
 ?>
 
@@ -28,9 +30,17 @@ $countReservation=count($resultatReservation);
     include "./navbar.php";
     ?>
     <section>
-        <div class="container mt-5 mb-2 ">
+        <div class="container mt-5  ">
             <div class="row">
-            <h4 class="fw-bold fs-3 mb-4"> Mes Réservations</h4>
+            <h4 class="fw-bold fs-3 mt-5"> Mes Réservations : <span class="text-secondary">
+                <?php
+                if (isset($_COOKIE['count-reservation'])){
+                    echo $_COOKIE['count-reservation'];
+                } else {
+                    echo 0;
+                }
+            
+            ?></span> </h4>
             <hr class="mb-5">
             <div class="text-center mb-5 ">
             <a href="../index.php" class="btn btn-outline-dark text-center " style="width: 300px ">

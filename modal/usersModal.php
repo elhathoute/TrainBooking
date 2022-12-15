@@ -1,5 +1,5 @@
 <?php
-// include 'dbTrain.php';
+include_once 'dbTrain.php';
 
     class UsersModal extends DbTrain {
        

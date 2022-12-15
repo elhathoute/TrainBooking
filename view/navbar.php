@@ -32,10 +32,24 @@ session_start();
                                         <li><a class="dropdown-item my-2 " href="http://localhost/dashboard-version-3/view/logoutPassenger.php">Se déconnecter</a></li>
                                     </ul>
                              </li>
-                    
-                                <li class="nav-item me-5">
+                             <li class="nav-item me-5">
+                             <a href="http://localhost/dashboard-version-3/view/mesReservation.php?id=<?php echo $_SESSION['user']['id'];?>" type="button" class="btn btn-light position-relative">
+                                My
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                <?php 
+                                if(isset( $_COOKIE['count-reservation'])){
+                                    echo $_COOKIE['count-reservation'];
+                                } else {
+                            echo 0;
+                        }
+                                ?>+
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
+                                </a> 
+                                </li>            
+                                <!-- <li class="nav-item me-5">
                                     <a class="nav-link " href="# "><span class="material-symbols-outlined text-white ">shopping_cart</span></a>
-                                </li>
+                                </li> -->
                             </ul>
                         <?php }else{ ?>
                             <div class="px-4 text-center ">        
